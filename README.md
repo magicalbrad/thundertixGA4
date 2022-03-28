@@ -32,3 +32,5 @@ Unfortunately, at this time Thundertix does not provide sufficient data to use G
 - Install Google Tag Manager on your website.
 
 Note that if you do use conversion tracking, you'll need to set up the "ticket_purchase" custom event in your main site's analytics.
+
+Also, it isn't strictly necessary to use Google Tag Manager on your main site, as you could just add the appropriate GA4 and parent_frame.js code to your site directly. (Of course, f you know how to do that, you probably already knoew that without me mentioning it.)
