@@ -11,7 +11,9 @@ Briefly, the problem is that for security reasons, browsers are blocking cookies
 
 This solution gets around that by having the child frame pass the event information to the parent window to be recorded.
 
-This means the analytics from the Thundertix events will appear in your main site's analytics account.
+This means the analytics from the Thundertix events will appear in your main site's analytics account. By default, this is st up to record the iframe events as standard page view, click, and scroll events on the main site, as this requires minimal setup. You can chose to record them using custom events, but that will require additional configuration in Google Analytics. 
+
+Unfortunately, at this time Thundertix does not provide sufficient data to use GA4's recommended "purchase" event. So, by default a custom "ticket_purchase" event is used for conversions. This means that event must be manually configured as a custom event in Google Analytics, of you wish to track purchase events.
 
 ## Implementation
 ### Thundertix Child Frame
@@ -29,4 +31,4 @@ This means the analytics from the Thundertix events will appear in your main sit
 - Create a "Custom HTML Tag" in Tag Manager, using the script in parent_frame.js file. (https://github.com/magicalbrad/thundertixGA4/blob/main/parent_frame.js) There are some configuration options in the file. See the comments in the file for more info. This tag only needs to be triggerred on pages that have a Thndrtix iFrame.
 - Install Google Tag Manager on your website.
 
-Note that if you do use conversion tracking, you'll need to set up the "ticket_purchase" custom event in your main site's analytics. Unfortunately, at this time Thundertix does not provide sufficient data to use GA4's recommended "purchase" event.
+Note that if you do use conversion tracking, you'll need to set up the "ticket_purchase" custom event in your main site's analytics.
