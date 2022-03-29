@@ -60,10 +60,10 @@ This means the analytics from the Thundertix events will appear in your main sit
 
 | Name | Tag Type | Event Name | Event Parameters | Triggering |
 |---|---|---|---|---|
-| Thundertix Click  | Google Analytics: GA4 event | click | page_title {{Thundertix Page Title}}<br>page_location {{Thundertix Page URL}} | Thunderclix Link Click |
-| Thundertix Page View  | Google Analytics: GA4 event | page_view | page_title {{Thundertix Page Title}}<br>page_location {{Thundertix Page URL}} | Thunderclix Page View |
-| Thundertix Scroll  | Google Analytics: GA4 event | scroll | page_title {{Thundertix Page Title}}<br>page_location {{Thundertix Page URL}} | Thunderclix Scroll |
-| Thundertix Purchase  | Google Analytics: GA4 event | ticket_purchase | page_title {{Thundertix Page Title}}<br>page_location {{Thundertix Page URL}}<br>value {{value}} | Ticlet Purchase |
+| Thundertix Click  | Google Analytics: GA4 event | click | page_title {{Thundertix Page Title}}<br>page_location {{Thundertix Page URL}} | Thundertix Link Click |
+| Thundertix Page View  | Google Analytics: GA4 event | page_view | page_title {{Thundertix Page Title}}<br>page_location {{Thundertix Page URL}} | Thundertix Page View |
+| Thundertix Scroll  | Google Analytics: GA4 event | scroll | page_title {{Thundertix Page Title}}<br>page_location {{Thundertix Page URL}} | Thundertix Scroll |
+| Thundertix Purchase  | Google Analytics: GA4 event | ticket_purchase | page_title {{Thundertix Page Title}}<br>page_location {{Thundertix Page URL}}<br>value {{value}} | Ticket Purchase |
 
 #### Your Website
 - Install Google Tag Manager on your website.
