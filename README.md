@@ -13,28 +13,23 @@ Briefly, the problem is that for security reasons, browsers are blocking cookies
 
 This solution gets around that by having the child frame pass the event information to the parent window to be recorded. The basic flow is something like this:
 
-- Google Analytics creates an event on the embedded Thundertix page.
-- A custom Google Tag Manager tag on the Thundrtix page sends a copy of the event to the parent window.
-- A custom Google Tag Manager tag on the main window listens for these messages, records the event in the parent window.
+- Google Tag Manager triggers events on the embedded Thundertix page.
+- A custom Google Tag Manager tag on the Thundrtix page sends a copy of each event to the parent window.
+- A custom Google Tag Manager tag on the main window listens for these messages, records the events in the parent window.
 - Custom Tag Manager GA4 events are triggered, sending the data to the parent window's Google Analytics account. 
 
 This means the analytics from the Thundertix events will appear in your main site's analytics account. 
 
 ## Implementation
 ### Thundertix Child Frame Setup
-#### Google Analytics Analytics
-- Create an GA4 analytics account for Thundertix, if you don't already have one set up.
 #### Google Tag Manager
 - Create a Google Tag Manager account for Thundertix, if you don't already have one.
-- Create a "Google Analytics: GA4 Configuration Tag" in Tag Manager, configured for your Thundertix GA4 account.
 - Create a "Custom HTML Tag" in Tag Manager, using the script in child_frame.js file. (https://github.com/magicalbrad/thundertixGA4/blob/main/child_frame.js) There are some configuration options in the file. See the comments in the file for more info.
 #### Thundertix Admin
 - In the "Integrations & Pixel Tracking" area of the Thundertix admin, add your Google Tag Manager account ID.
 - Also in the In the "Integrations & Pixel Tracking" area, add the code from conversion.js (https://github.com/magicalbrad/thundertixGA4/blob/main/conversion.js) to "Conversion and Click Tracking," if you witch to track conversions. (You may need to contact their support to get that added.) 
 
 ### Parent Window (a.k.a. your site where the Thindertix frame is used)
-#### Google Analytics
-- Create an GA4 analytics account for your site, if you don't already have one set up.
 #### Google Tag Manager
 - Create a Google Tag Manager account for your site, if you don't already have one.
 - Create a "Google Analytics: GA4 Configuration Tag" in Tag Manager, configured for your website's GA4 account.
@@ -68,4 +63,4 @@ This means the analytics from the Thundertix events will appear in your main sit
 #### Your Website
 - Install Google Tag Manager on your website.
 
-Note that if you do use conversion tracking, you'll need to set up the "ticket_purchase" custom event in your main site's analytics. It shold be added as a custom definition, and marked as a conversion.
+Note that if you do use conversion tracking, you'll need to set up the "ticket_purchase" custom event in your main site's Google Analytics account. It should be added as a custom definition, and marked as a conversion.
