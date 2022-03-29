@@ -2,7 +2,11 @@
 /*************************************************************
 **  Parent Frame Custom HTML Tag for Thundertix GA4 tracking
 **
-** Based on Simo Ahava's Cookieless solution here:
+** Accepts events from child and puses them to its own dataLayer.
+** Triggers & tags must be configured in Tag Manager to create
+** GA4 events.
+**
+** Based on Simo Ahava's Cookieless GA4 solution here:
 ** https://www.simoahava.com/analytics/cookieless-tracking-cross-site-iframes/
 ************************************************************/
 (function() {
@@ -10,17 +14,6 @@
 	// Change to your exact domain for increased security.
 	// E.g. childOrigin = 'https://mysubdomain.thundertix.com';
 	var childOrigin = 'thundertix.com$';
-
-	// Controls which iframe events are tracked, and how.
-	// The key (before the colon) is the iframe event to be tracked.
-	// The value (after the colon) is the event to trigger in Google Analytics.
-	// Note: Custom events will require additional setup in analytics to show up in reports.
-	var trackedEvents = {
-		'iframe.gtm.js': 'page_view',
-		'iframe.gtm.linkClick': 'click',
-		'iframe.gtm.scrollDepth': 'scroll',
-		'ticket_purchase': 'ticket_purchase'
-	};
 
     function postCallback(e) {
       if (!e.origin.match(childOrigin)) return;
@@ -31,16 +24,13 @@
         e.source.postMessage('parentReady', e.origin);
       }
 
-	  if (e.data.event && e.data.event in trackedEvents) {
-		  // Change iframe event name to desired event
-		  e.data.event = trackedEvents[e.data.event];
-
+	  if (e.data.event) {
 		  // Override page location and title for event
-		  e.data.page_location = e.data.event.iframe.pageData.url;
-		  e.data.page_title = e.data.event.iframe.pageData.title;
+		  e.data.page_location = e.data.iframe.pageData.url;
+		  e.data.page_title = e.data.iframe.pageData.title;
 
-		  // Push dataLayer message from iframe to dataLayer of parent
-		  window.dataLayer.push(event.data);
+		  // Push message from iframe to dataLayer of parent
+		  window.dataLayer.push(e.data);
       }
     }
 

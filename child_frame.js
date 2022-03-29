@@ -14,10 +14,9 @@
 	// By default, this will send messages to any parent window.
 	// Change to your exact domain for increased security.
 	// E.g. parentOrigin = 'https://www.mydomain.com';
-    var parentOrigin = window.parent;
+    var parentOrigin = '*';
 
-	// Prefix for iframe events. If this is changed, the events must be changed to
-	// match in the parent_frame script.
+	// Prefix for iframe events.
 	var dataLayerMessagePrefix = 'iframe';
 
     // Maximum time in milliseconds to poll the parent frame for ready signal
