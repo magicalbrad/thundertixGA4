@@ -55,10 +55,10 @@ This means the analytics from the Thundertix events will appear in your main sit
 
 | Name | Tag Type | Event Name | Event Parameters | Triggering |
 |---|---|---|---|---|
-| Thundertix Click  | GA4 event | click | page_title {{Thundertix Page Title}}<br>page_location {{Thundertix Page URL}} | Thundertix Link Click |
-| Thundertix Page View  | GA4 event | page_view | page_title {{Thundertix Page Title}}<br>page_location {{Thundertix Page URL}} | Thundertix Page View |
-| Thundertix Scroll  | GA4 event | scroll | page_title {{Thundertix Page Title}}<br>page_location {{Thundertix Page URL}} | Thundertix Scroll |
-| Thundertix Purchase  | GA4 event | ticket_purchase | page_title {{Thundertix Page Title}}<br>page_location {{Thundertix Page URL}}<br>value {{value}}<br>currency USD | Ticket Purchase |
+| Thundertix Click  | GA4 event | click | page_title {{Thundertix Page Title}}<br>page_location {{Thundertix Page URL}} | Custom Event: iframe.gtm.linkClick |
+| Thundertix Page View  | GA4 event | page_view | page_title {{Thundertix Page Title}}<br>page_location {{Thundertix Page URL}} | Custom Event: iframe.gtm.js |
+| Thundertix Scroll  | GA4 event | scroll | page_title {{Thundertix Page Title}}<br>page_location {{Thundertix Page URL}} | Custom Event: iframe.gtm.scrollDepth |
+| Thundertix Purchase  | GA4 event | ticket_purchase | page_title {{Thundertix Page Title}}<br>page_location {{Thundertix Page URL}}<br>value {{value}}<br>currency USD | Custom Event: iframe.ticket_purchase |
 
 #### Your Website
 - Install Google Tag Manager on your website.
