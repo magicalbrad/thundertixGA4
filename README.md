@@ -49,16 +49,16 @@ This means the analytics from the Thundertix events will appear in your main sit
 | Thundertix Link Click  | Data Layer Variable | iframe.gtm.linkClick | All Custom Events |
 | Thundertix Page View  | Data Layer Variable | iframe.gtm.js | All Custom Events |
 | Thundertix Scroll  | Data Layer Variable | iframe.gtm.scrollDepth | All Custom Events | 
-| Thundertix Purchase  | Data Layer Variable | ticket_purchase | All Custom Events |
+| Thundertix Purchase  | Data Layer Variable | iframe.ticket_purchase | All Custom Events |
 
 - Create the any of the following tags you for events you wish to track:<br>Note, all of these examples use the standard GA4 events except for the custom event "ticket_purchase." At this time, Thundertix does not provide sufficient data to support using the standard GA4 purchase event. Of course, you can choose to use custom events for any or all of the events. Any custom events must be configured in Google Analytics as "Custom Definitions," and you will likely want to mark the ticket_purchase custom event as a conversion. 
 
 | Name | Tag Type | Event Name | Event Parameters | Triggering |
 |---|---|---|---|---|
-| Thundertix Click  | GA4 event | click | page_title {{Thundertix Page Title}}<br>page_location {{Thundertix Page URL}} | Custom Event: iframe.gtm.linkClick |
-| Thundertix Page View  | GA4 event | page_view | page_title {{Thundertix Page Title}}<br>page_location {{Thundertix Page URL}} | Custom Event: iframe.gtm.js |
-| Thundertix Scroll  | GA4 event | scroll | page_title {{Thundertix Page Title}}<br>page_location {{Thundertix Page URL}} | Custom Event: iframe.gtm.scrollDepth |
-| Thundertix Purchase  | GA4 event | ticket_purchase | page_title {{Thundertix Page Title}}<br>page_location {{Thundertix Page URL}}<br>value {{value}}<br>currency USD | Custom Event: iframe.ticket_purchase |
+| Thundertix Click  | GA4 event | click | page_title {{Thundertix Page Title}}<br>page_location {{Thundertix Page URL}} | Thundertix Link Click |
+| Thundertix Page View  | GA4 event | page_view | page_title {{Thundertix Page Title}}<br>page_location {{Thundertix Page URL}} | Thundertix Page View |
+| Thundertix Scroll  | GA4 event | scroll | page_title {{Thundertix Page Title}}<br>page_location {{Thundertix Page URL}} | Thundertix Scroll |
+| Thundertix Purchase  | GA4 event | ticket_purchase | page_title {{Thundertix Page Title}}<br>page_location {{Thundertix Page URL}}<br>value {{value}}<br>currency USD | Ticket Purchase |
 
 #### Your Website
 - Install Google Tag Manager on your website.
