@@ -40,7 +40,7 @@ This means the analytics from the Thundertix events will appear in your main sit
 |---|---|---|
 | Thundertix Page Title  | Data Layer Variable | iframe.pageData.title |
 | Thundertix Page URL  | Data Layer Variable | iframe.pageData.url |
-| value | Data Layer Variable | value |
+| value | Data Layer Variable | iframe.value |
 
 - Create the any of the following triggers for events you wish to track:
 
