@@ -6,7 +6,7 @@ I don't know whether this will actually be of use to anyone. I thought I'd share
 ## Credit
 This is an implementation of Simo Ahava's Cookieless tracking solution applied to tracking for embeded Thundertix ticketing iframes.
 
-Details of Simo Ahava's implementation can be found [here](https://www.simoahava.com/analytics/cookieless-tracking-cross-site-iframes/)
+Details of Simo Ahava's implementation can be found [here.](https://www.simoahava.com/analytics/cookieless-tracking-cross-site-iframes/)
 
 ## Overview
 Briefly, the problem is that for security reasons, browsers are blocking cookies from third party iframes. This blocking prevents analytics from working in some situations including for embedded Thundertix ticketing frame on your website. (See Simo Ahava's post above for more details of the issue.)
@@ -24,16 +24,16 @@ This means the analytics from the Thundertix events will appear in your main sit
 ### Thundertix Child Frame Setup
 #### Google Tag Manager
 - Create a Google Tag Manager account for Thundertix, if you don't already have one.
-- Create a "Custom HTML Tag" in Tag Manager, using the script in child_frame.js file. [Script Source](https://github.com/magicalbrad/thundertixGA4/blob/main/child_frame.js) There are some configuration options in the file. See the comments in the file for more info.
+- Create a "Custom HTML Tag" in Tag Manager, using the script in the [child_frame.js file.](https://github.com/magicalbrad/thundertixGA4/blob/main/child_frame.js) There are some configuration options in the file. See the comments in the file for more info.
 #### Thundertix Admin
 - In the "Integrations & Pixel Tracking" area of the Thundertix admin, add your Google Tag Manager account ID.
-- Also in the In the "Integrations & Pixel Tracking" area, add the code from conversion.js [Script Source](https://github.com/magicalbrad/thundertixGA4/blob/main/conversion.js) to "Conversion and Click Tracking," if you witch to track conversions. (You may need to contact their support to get that added.) 
+- Also in the In the "Integrations & Pixel Tracking" area, add the code from [conversion.js](https://github.com/magicalbrad/thundertixGA4/blob/main/conversion.js) to "Conversion and Click Tracking," if you witch to track conversions. (You may need to contact their support to get that added.) 
 
 ### Parent Window (a.k.a. your site where the Thindertix frame is used)
 #### Google Tag Manager
 - Create a Google Tag Manager account for your site, if you don't already have one.
 - Create a "Google Analytics: GA4 Configuration Tag" in Tag Manager, configured for your website's GA4 account.
-- Create a "Custom HTML Tag" in Tag Manager, using the script in parent_frame.js file. [Script Source](https://github.com/magicalbrad/thundertixGA4/blob/main/parent_frame.js) There are some configuration options in the file. See the comments in the file for more info. This tag only needs to be triggered on pages that have a Thundertix iframe.
+- Create a "Custom HTML Tag" in Tag Manager, using the script in [parent_frame.js file.](https://github.com/magicalbrad/thundertixGA4/blob/main/parent_frame.js) There are some configuration options in the file. See the comments in the file for more info. This tag only needs to be triggered on pages that have a Thundertix iframe.
 - Create the following Tag Manager Variables: (Value is only required of you are implementing conversion tracking.)
 
 | Name | Variable Type | Variable Name |
