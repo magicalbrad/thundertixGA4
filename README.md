@@ -64,3 +64,7 @@ This means the analytics from the Thundertix events will appear in your main sit
 - Install Google Tag Manager on your website.
 
 Note that if you do use conversion tracking, you'll need to set up the "ticket_purchase" custom event in your main site's Google Analytics account. It should be added as a custom definition, and marked as a conversion.
+
+## Project Source
+
+[Visit Github Repository](https://github.com/magicalbrad/thundertixGA4)
