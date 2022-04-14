@@ -56,7 +56,7 @@ This means the analytics from the Thundertix events will appear in your main sit
 {% raw %}
 | Name | Tag Type | Event Name | Event Parameters | Triggering |
 |---|---|---|---|---|
-| Thundertix Click  | GA4 event | click | page_title:<br>{{Thundertix Page Title}}<br>page_location:<br><br>{{Thundertix Page URL}} | Thundertix Link Click |
+| Thundertix Click  | GA4 event | click | page_title:<br>{{Thundertix Page Title}}<br><br>page_location:<br>{{Thundertix Page URL}} | Thundertix Link Click |
 | Thundertix Page View  | GA4 event | page_view | page_title:<br>{{Thundertix Page Title}}<br><br>page_location:<br>{{Thundertix Page URL}} | Thundertix Page View |
 | Thundertix Scroll  | GA4 event | scroll | page_title:<br>{{Thundertix Page Title}}<br><br>page_location:<br>{{Thundertix Page URL}} | Thundertix Scroll |
 | Thundertix Purchase  | GA4 event | ticket_purchase | page_title:<br>{{Thundertix Page Title}}<br><br>page_location:<br>{{Thundertix Page URL}}<br><br>value:<br>{{value}}<br>currency USD | Ticket Purchase |
@@ -114,8 +114,8 @@ The custom "ticket_purchase" event is used to trigger the ecommerce purchase. Th
 {% raw %}
 | Name | Tag Type | Event Name | Event Parameters | Triggering |
 |---|---|---|---|---|
-| Purchase  | GA4 event | Ticket Purchase | page_title {{Thundertix Page Title}}<br>page_location {{Thundertix Page URL}}<br>value {{Value}}<br>currency {{Ecommerce Currency}}<br>transaction_id {{Ecommerce Transaction ID}}<br>items {{Ecommerce Items}} | Ticket Purchase |
-| Thundertix View Cart | GA4 event | page_view | page_title {{Thundertix Page Title}}<br>page_location {{Thundertix Page URL}}<br>value {{Value}}<br>currency {{Ecommerce Currency}}<br>items {{Ecommerce Items}} | Thundertix View Cart |
-| Thundertix View Item  | GA4 event | scroll | page_title {{Thundertix Page Title}}<br>page_location {{Thundertix Page URL}}<br>items {{Ecommerce Items}} | Thundertix View Item |
+| Purchase  | GA4 event | Ticket Purchase | page_title:<br>{{Thundertix Page Title}}<br><br>page_location:<br>{{Thundertix Page URL}}<br>value:<br>{{Value}}<br><br>currency:<br>{{Ecommerce Currency}}<br><br>transaction_id:<br>{{Ecommerce Transaction ID}}<br><br>items:<br>{{Ecommerce Items}} | Ticket Purchase |
+| Thundertix View Cart | GA4 event | page_view | page_title:<br>{{Thundertix Page Title}}<br><br>page_location:<br>{{Thundertix Page URL}}<br>value:<br>{{Value}}<br>currency:<br>{{Ecommerce Currency}}<br><br>items:<br>{{Ecommerce Items}} | Thundertix View Cart |
+| Thundertix View Item  | GA4 event | scroll | page_title:<br>{{Thundertix Page Title}}<br><br>page_location:<br>{{Thundertix Page URL}}<br>items:<br>{{Ecommerce Items}} | Thundertix View Item |
 
 {% endraw %}
