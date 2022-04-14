@@ -53,12 +53,14 @@ This means the analytics from the Thundertix events will appear in your main sit
 
 - Create the any of the following tags you for events you wish to track:<br>Note, all of these examples use the standard GA4 events except for the custom event "ticket_purchase." At this time, Thundertix does not provide sufficient data to support using the standard GA4 purchase event. Of course, you can choose to use custom events for any or all of the events. Any custom events must be configured in Google Analytics as "Custom Definitions," and you will likely want to mark the ticket_purchase custom event as a conversion. 
 
+{% raw %}
 | Name | Tag Type | Event Name | Event Parameters | Triggering |
 |---|---|---|---|---|
 | Thundertix Click  | GA4 event | click | page_title {{Thundertix Page Title}}<br>page_location {{Thundertix Page URL}} | Thundertix Link Click |
 | Thundertix Page View  | GA4 event | page_view | page_title {{Thundertix Page Title}}<br>page_location {{Thundertix Page URL}} | Thundertix Page View |
 | Thundertix Scroll  | GA4 event | scroll | page_title {{Thundertix Page Title}}<br>page_location {{Thundertix Page URL}} | Thundertix Scroll |
 | Thundertix Purchase  | GA4 event | ticket_purchase | page_title {{Thundertix Page Title}}<br>page_location {{Thundertix Page URL}}<br>value {{value}}<br>currency USD | Ticket Purchase |
+{% endraw %}
 
 #### Your Website
 - Install Google Tag Manager on your website.
@@ -82,7 +84,7 @@ The custom "ticket_purchase" event is used to trigger the ecommerce purchase. Th
 ### Thundertix Child Frame Setup
 
 #### Google Tag Manager
-- Create a "Custom HTML Tag" for item views in Tag Manager, using the script in the [view_item.js file.](https://github.com/magicalbrad/thundertixGA4/blob/main/view_item.js) It should be triggerred only on the item page. For my purposes, that is /orders/new. Depending on which embed code you're using, you may need to triger on pages with a URL like /events/{{event id}}. 
+- Create a "Custom HTML Tag" for item views in Tag Manager, using the script in the [view_item.js file.](https://github.com/magicalbrad/thundertixGA4/blob/main/view_item.js) It should be triggerred only on the item page. For my purposes, that is /orders/new. Depending on which embed code you're using, you may need to triger on pages with a URL like /events/(event id). 
 - Create a "Custom HTML Tag" for cart views in Tag Manager, using the script in the [view_cart.js file.](https://github.com/magicalbrad/thundertixGA4/blob/main/view_cart.js) It should be triggerred on the cart page, which has a URL of either /orders/new or /cart, depending on whether the user is coming to it for the first time, or returning later.
 
 ### Parent Window (a.k.a. your site)
@@ -106,10 +108,12 @@ The custom "ticket_purchase" event is used to trigger the ecommerce purchase. Th
 | Thundertix View Cart  | Data Layer Variable | iframe.view_cart | All Custom Events |
 | Thundertix View Item  | Data Layer Variable | iframe.view_item | All Custom Events |
 
-- Create the following tags. 
+- Create the following tags.
 
+{% raw %}
 | Name | Tag Type | Event Name | Event Parameters | Triggering |
 |---|---|---|---|---|
 | Purchase  | GA4 event | Ticket Purchase | page_title {{Thundertix Page Title}}<br>page_location {{Thundertix Page URL}}<br>value {{Value}}<br>currency {{Ecommerce Currency}}<br>transaction_id {{Ecommerce Transaction ID}}<br>items {{Ecommerce Items}} | Ticket Purchase |
 | Thundertix View Cart | GA4 event | page_view | page_title {{Thundertix Page Title}}<br>page_location {{Thundertix Page URL}}<br>value {{Value}}<br>currency {{Ecommerce Currency}}<br>items {{Ecommerce Items}} | Thundertix View Cart |
 | Thundertix View Item  | GA4 event | scroll | page_title {{Thundertix Page Title}}<br>page_location {{Thundertix Page URL}}<br>items {{Ecommerce Items}} | Thundertix View Item |
+{% raw %}
