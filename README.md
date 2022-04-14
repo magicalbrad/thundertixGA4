@@ -71,9 +71,9 @@ Thundertix doesn't support GA4 ecommerce. This is my attempt to make it work any
 
 As your needs may be diferent than mine, you should probably consider this as an example reference implementation, rather than a plug-and-play solution. Also be aware it could stop working at any time. 
 
-Here's my approach. I am sonsidering the show to be the item name, and the ticket type to be the item variant. I am ignoring the date. 
+Here's my approach. I am considering the show name to be the item name, and the ticket type to be the item variant. I am ignoring the date. 
 
-I am triggerring a view_item event with a minimal ecommerce object with an item array containing just the show name displayed on that page. As I am using the "list of performances" embed, I am considering the next page, where the tickets are selected, to be the item page. If you are usng the normal event embed, the same approach should work.
+I am triggerring a view_item event with a minimal ecommerce object with an item array containing just the show name displayed on that page. As I am using the "list of performances" embed, I am considering the next page, where the tickets are selected, to be the item page. If you are usng the normal event embed, the same approach should work for the event page.
 
 The view_cart event is triggerred on the page where the payemt info is entered. (For some reason, there are two URLs for this page, /orders and /cart.) This creates a full ecommerce object. 
 
