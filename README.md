@@ -113,7 +113,3 @@ The custom "ticket_purchase" event is used to trigger the ecommerce purchase. Th
 | Purchase  | GA4 event | Ticket Purchase | page_title {{Thundertix Page Title}}<br>page_location {{Thundertix Page URL}}<br>value {{Value}}<br>currency {{Ecommerce Currency}}<br>transaction_id {{Ecommerce Transaction ID}}<br>items {{Ecommerce Items}} | Ticket Purchase |
 | Thundertix View Cart | GA4 event | page_view | page_title {{Thundertix Page Title}}<br>page_location {{Thundertix Page URL}}<br>value {{Value}}<br>currency {{Ecommerce Currency}}<br>items {{Ecommerce Items}} | Thundertix View Cart |
 | Thundertix View Item  | GA4 event | scroll | page_title {{Thundertix Page Title}}<br>page_location {{Thundertix Page URL}}<br>items {{Ecommerce Items}} | Thundertix View Item |
-
-## Project Source
-
-[Visit Github Repository](https://github.com/magicalbrad/thundertixGA4)
