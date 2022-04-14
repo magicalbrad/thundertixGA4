@@ -24,7 +24,7 @@ This means the analytics from the Thundertix events will appear in your main sit
 ### Thundertix Child Frame Setup
 #### Google Tag Manager
 - Create a Google Tag Manager account for Thundertix, if you don't already have one.
-- Create a "Custom HTML Tag" in Tag Manager, using the script in the [child_frame.js file.](https://github.com/magicalbrad/thundertixGA4/blob/main/child_frame.js) There are some configuration options in the file. See the comments in the file for more info.
+- Create a "Custom HTML Tag" in Tag Manager, using the script in the [child_frame.js file.](https://github.com/magicalbrad/thundertixGA4/blob/main/child_frame.js) It should be triggerred on all pages. There are some configuration options in the file. See the comments in the file for more info.
 #### Thundertix Admin
 - In the "Integrations & Pixel Tracking" area of the Thundertix admin, add your Google Tag Manager account ID.
 - Also in the In the "Integrations & Pixel Tracking" area, add the code from [conversion.js](https://github.com/magicalbrad/thundertixGA4/blob/main/conversion.js) to "Conversion and Click Tracking," if you witch to track conversions. (You may need to contact their support to get that added.) 
@@ -64,6 +64,55 @@ This means the analytics from the Thundertix events will appear in your main sit
 - Install Google Tag Manager on your website.
 
 Note that if you do use conversion tracking, you'll need to set up the "ticket_purchase" custom event in your main site's Google Analytics account. It should be added as a custom definition, and marked as a conversion.
+
+## Really Ugly Ecommerce Implementation Experiment
+
+Thundertix doesn't support GA4 ecommerce. This is my attempt to make it work anyway. It scrapes the necessary data off the page, which is a fragile hack that will break if they make even minor changes to the ticketing pages. 
+
+As your needs may be diferent than mine, you should probably consider this as an example reference implementation, rather than a plug-and-play solution. Also be aware it could stop working at any time. 
+
+Here's my approach. I am sonsidering the show to be the item name, and the ticket type to be the item variant. I am ignoring the date. 
+
+I am triggerring a view_item event with a minimal ecommerce object with an item array containing just the show name displayed on that page. As I am using the "list of performances" embed, I am considering the next page, where the tickets are selected, to be the item page. If you are usng the normal event embed, the same approach should work.
+
+The view_cart event is triggerred on the page where the payemt info is entered. (For some reason, there are two URLs for this page, /orders and /cart.) This creates a full ecommerce object. 
+
+The custom "ticket_purchase" event is used to trigger the ecommerce purchase. Thundertix does not supply enough information to create the required ecommerce object, but the ecommerce object from the view_cart event still exists and can be used instead. I do use the Thundertix provided value passed from the custom event, as I expect that to be more reliable than my scraped value from the cart page.
+
+### Thundertix Child Frame Setup
+
+#### Google Tag Manager
+- Create a "Custom HTML Tag" for item views in Tag Manager, using the script in the [view_item.js file.](https://github.com/magicalbrad/thundertixGA4/blob/main/view_item.js) It should be triggerred only on the item page. For my purposes, that is /orders/new. Depending on which embed code you're using, you may need to triger on pages with a URL like /events/{{event id}}. 
+- Create a "Custom HTML Tag" for cart views in Tag Manager, using the script in the [view_cart.js file.](https://github.com/magicalbrad/thundertixGA4/blob/main/view_cart.js) It should be triggerred on the cart page, which has a URL of either /orders/new or /cart, depending on whether the user is coming to it for the first time, or returning later.
+
+### Parent Window (a.k.a. your site)
+
+#### Google Tag Manager
+
+- Create the following Tag Manager Variables:
+
+| Name | Variable Type | Variable Name |
+|---|---|---|
+| Ecommerce Currency | Data Layer Variable | iframe.ecommerce.currency |
+| Ecommerce Items | Data Layer Variable | iframe.ecommerce.items |
+| Ecommerce Transaction ID | Data Layer Variable | iframe.ecommerce.transaction_id |
+| Ecommerce Value | Data Layer Variable | iframe.ecommerce.value |
+
+
+- Create the following triggers:
+
+| Name | Trigger Type | Event Name | Trigger Fires on |
+|---|---|---|---|
+| Thundertix View Cart  | Data Layer Variable | iframe.view_cart | All Custom Events |
+| Thundertix View Item  | Data Layer Variable | iframe.view_item | All Custom Events |
+
+- Create the following tags. 
+
+| Name | Tag Type | Event Name | Event Parameters | Triggering |
+|---|---|---|---|---|
+| Purchase  | GA4 event | GA4 event | page_title {{Thundertix Page Title}}<br>page_location {{Thundertix Page URL}}<br>value {{Value}}<br>currency {{Ecommerce Currency}}<br>transaction_id {{Ecommerce Transaction ID}}<br>items {{Ecommerce Items}} | Ticket Purchase |
+| Thundertix View Cart | GA4 event | page_view | page_title {{Thundertix Page Title}}<br>page_location {{Thundertix Page URL}}<br>value {{Value}}<br>currency {{Ecommerce Currency}}<br>items {{Ecommerce Items}} | Thundertix View Cart |
+| Thundertix View Item  | GA4 event | scroll | page_title {{Thundertix Page Title}}<br>page_location {{Thundertix Page URL}}<br>items {{Ecommerce Items}} | Thundertix View Item |
 
 ## Project Source
 
