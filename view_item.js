@@ -8,14 +8,14 @@
   
   // Create event using item name scraped from page.
   // As I'm using the embed option that lists all performances, I'm considering the next page
-  // where tickets are chosen to be the item page. The URL is "/orders/new" If you wish to use
-  // the event page, "/events/{{event id}}," the logic to scrape the event name would need to be updated.
+  // where tickets are chosen to be the item page. That URL is "/orders/new" 
+  // This logic *should* also work on the The event page, with URL format of"/events/{{event id}}"
   dataLayer.push({ ecommerce: null });  // Clear the previous ecommerce object.
   dataLayer.push({
     'event': 'view_item',
     'ecommerce': {
       'items': {
-        'item_name': decodeHTML(document.querySelector('.performance_name_orders_new').innerHTML)
+        'item_name': decodeHTML(document.querySelector("[itemprop='name']").innerHTML.replace(/(\r\n|\n|\r)/gm, "")) 
       }
     }
   });
