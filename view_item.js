@@ -13,6 +13,8 @@
   dataLayer.push({ ecommerce: null });  // Clear the previous ecommerce object.
   dataLayer.push({
     'event': 'view_item',
+    'currency': 'USD',
+    'value': parseFloat(document.querySelector("[itemprop='price']").innerHTML.replace(/(\r\n|\n|\r|\$)/gm, ""), 10),
     'ecommerce': {
       'items': {
         'item_name': decodeHTML(document.querySelector("[itemprop='name']").innerHTML.replace(/(\r\n|\n|\r)/gm, "")) 
