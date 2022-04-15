@@ -85,7 +85,7 @@ The custom "ticket_purchase" event is used to trigger the ecommerce purchase. Th
 ### Thundertix Child Frame Setup
 
 #### Google Tag Manager
-- Create a "Custom HTML Tag" for item views in Tag Manager, using the script in the [view_item.js file.](https://github.com/magicalbrad/thundertixGA4/blob/main/view_item.js) It should be triggerred only on the item page. For my purposes, that is /orders/new. Depending on which embed code you're using, you may need to triger on pages with a URL like /events/(event id). 
+- Create a "Custom HTML Tag" for item views in Tag Manager, using the script in the [view_item.js file.](https://github.com/magicalbrad/thundertixGA4/blob/main/view_item.js) It should be triggerred only on the item page. For my purposes, that is /orders/new. Depending on which embed code you're using, you may need to triger on pages with a URL like /events/(event id). You may need to adjust the logic that scrapes the name and price based on the information available on the page. 
 - Create a "Custom HTML Tag" for cart views in Tag Manager, using the script in the [view_cart.js file.](https://github.com/magicalbrad/thundertixGA4/blob/main/view_cart.js) It should be triggerred on the cart page, which has a URL of either /orders/new or /cart, depending on whether the user is coming to it for the first time, or returning later.
 
 ### Parent Window (a.k.a. your site)
@@ -94,12 +94,15 @@ The custom "ticket_purchase" event is used to trigger the ecommerce purchase. Th
 
 - Create the following Tag Manager Variables:
 
+(This asumes the variables in the sections above have already been created.)
+
 | Name | Variable Type | Variable Name |
 |---|---|---|
 | Ecommerce Currency | Data Layer Variable | iframe.ecommerce.currency |
 | Ecommerce Items | Data Layer Variable | iframe.ecommerce.items |
 | Ecommerce Transaction ID | Data Layer Variable | iframe.ecommerce.transaction_id |
 | Ecommerce Value | Data Layer Variable | iframe.ecommerce.value |
+| Currency | Data Layer Variable | iframe.currency |
 
 
 - Create the following triggers:
@@ -116,6 +119,6 @@ The custom "ticket_purchase" event is used to trigger the ecommerce purchase. Th
 |---|---|---|---|---|
 | Purchase  | GA4 event | Ticket Purchase | page_title:<br>{{Thundertix Page Title}}<br><br>page_location:<br>{{Thundertix Page URL}}<br>value:<br>{{Value}}<br><br>currency:<br>{{Ecommerce Currency}}<br><br>transaction_id:<br>{{Ecommerce Transaction ID}}<br><br>items:<br>{{Ecommerce Items}} | Ticket Purchase |
 | Thundertix View Cart | GA4 event | page_view | page_title:<br>{{Thundertix Page Title}}<br><br>page_location:<br>{{Thundertix Page URL}}<br>value:<br>{{Value}}<br>currency:<br>{{Ecommerce Currency}}<br><br>items:<br>{{Ecommerce Items}} | Thundertix View Cart |
-| Thundertix View Item  | GA4 event | scroll | page_title:<br>{{Thundertix Page Title}}<br><br>page_location:<br>{{Thundertix Page URL}}<br>items:<br>{{Ecommerce Items}} | Thundertix View Item |
+| Thundertix View Item  | GA4 event | scroll | page_title:<br>{{Thundertix Page Title}}<br><br>page_location:<br>{{Thundertix Page URL}}<br><br>value:<br>{{Value}}<br><br>currency:<br>'USD'<br><br>items:<br>{{Ecommerce Items}} | Thundertix View Item |
 
 {% endraw %}
