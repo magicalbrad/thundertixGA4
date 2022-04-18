@@ -85,8 +85,8 @@ The custom "ticket_purchase" event is used to trigger the ecommerce purchase. Th
 ### Thundertix Child Frame Setup
 
 #### Google Tag Manager
-- Create a "Custom HTML Tag" for item views in Tag Manager, using the script in the [view_item.js file.](https://github.com/magicalbrad/thundertixGA4/blob/main/view_item.js) It should be triggerred only on the item page. For my purposes, that is /orders/new. Depending on which embed code you're using, you may need to triger on pages with a URL like /events/(event id). You may need to adjust the logic that scrapes the name and price based on the information available on the page. 
-- Create a "Custom HTML Tag" for cart views in Tag Manager, using the script in the [view_cart.js file.](https://github.com/magicalbrad/thundertixGA4/blob/main/view_cart.js) It should be triggerred on the cart page, which has a URL of either /orders/new or /cart, depending on whether the user is coming to it for the first time, or returning later.
+- Create a "Custom HTML Tag" for item views in Tag Manager, using the script in the [view_item.js file.](https://github.com/magicalbrad/thundertixGA4/blob/main/view_item.js) It should be triggerred on window load only on the item page. For my purposes, that is /orders/new. Depending on which embed code you're using, you may need to triger on pages with a URL like /events/(event id). You may need to adjust the logic that scrapes the name and price based on the information available on the page. 
+- Create a "Custom HTML Tag" for cart views in Tag Manager, using the script in the [view_cart.js file.](https://github.com/magicalbrad/thundertixGA4/blob/main/view_cart.js) It should be triggerred on window load of the cart page, which has a URL of either /orders/new or /cart, depending on whether the user is coming to it for the first time, or returning later.
 
 ### Parent Window (a.k.a. your site)
 
