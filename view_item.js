@@ -16,9 +16,9 @@
     'currency': 'USD',
     'value': parseFloat(document.querySelector("[itemprop='price']").innerHTML.replace(/(\r\n|\n|\r|\$)/gm, ""), 10),
     'ecommerce': {
-      'items': {
+      'items': [{
         'item_name': decodeHTML(document.querySelector("[itemprop='name']").innerHTML.replace(/(\r\n|\n|\r)/gm, "")) 
       }
-    }
+    }]
   });
 </script>
