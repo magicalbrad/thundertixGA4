@@ -16,7 +16,7 @@
     // ticket type, show name, and performance date are in a single element, separated by newlines. 
     // This isn't pretty, but it's the best I can do with what I have.
     // Array element 1 = ticket type, 3 = show name, and 4 = date
-    var nameparts = i.querySelector('td:nth-child(4)').innerHTML.split(/\r?\n/);
+    var nameparts = i.querySelector('td:nth-child(4)').innerText.split(/\r?\n|\r/);
     
 	  item.item_name = decodeHTML(nameparts[3]); // Show Name
     item.item_variant = decodeHTML(nameparts[1]); // Ticket type
