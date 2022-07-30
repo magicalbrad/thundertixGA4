@@ -78,9 +78,9 @@ Here's my approach. I am considering the show name to be the item name, and the 
 
 I am triggerring a view_item event with a minimal ecommerce object with an item array containing just the show name displayed on that page. As I am using the "list of performances" embed, I am considering the next page, where the tickets are selected, to be the item page. If you are usng the normal event embed, the same approach should work for the event page.
 
-The view_cart event is triggerred on the page where the payemt info is entered. (For some reason, there are two URLs for this page, /orders and /cart.) This creates a full ecommerce object. 
+The view_cart event is triggerred on the page where the payemt info is entered. (For some reason, there are two URLs for this page, /orders and /cart.) This creates a full ecommerce object. (The view_cart event doesn't seem to provide much useful data in GA4, so you could skip setting it up.)
 
-The custom "ticket_purchase" event is used to trigger the ecommerce purchase. Thundertix does not supply enough information to create the required ecommerce object, but the ecommerce object from the view_cart event still exists and can be used instead. I do use the Thundertix provided value passed from the custom event, as I expect that to be more reliable than my scraped value from the cart page.
+The custom "ticket_purchase" event is used to trigger the ecommerce purchase. Thundertix does not supply enough information to create the required ecommerce object, but the ecommerce object from the add_payment_info event still exists and can be used instead. I do use the Thundertix provided value passed from the custom event, as I expect that to be more reliable than my scraped value from the cart page.
 
 ### Thundertix Child Frame Setup
 
