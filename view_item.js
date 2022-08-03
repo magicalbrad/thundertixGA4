@@ -1,11 +1,4 @@
 <script>
-  // Little function fo decode HTML entity codes.
-  function decodeHTML(html) {
-	  var txt = document.createElement('textarea');
-	  txt.innerHTML = html;
-	  return txt.value;
-  };
-  
   // Create event using item name scraped from page.
   // As I'm using the embed option that lists all performances, I'm considering the next page
   // where tickets are chosen to be the item page. That URL is "/orders/new" 
@@ -14,11 +7,11 @@
   dataLayer.push({
     'event': 'view_item',
     'currency': 'USD',
-    'value': parseFloat(document.querySelector("[itemprop='price']").innerHTML.replace(/(\r\n|\n|\r|\$)/gm, ""), 10),
+    'value': parseFloat(document.querySelector("[itemprop='price']").innerText.replace("$", ""), 10),
     'ecommerce': {
       'items': [{
-        'item_name': decodeHTML(document.querySelector("[itemprop='name']").innerHTML.replace(/(\r\n|\n|\r)/gm, "")) 
-      }
-    }]
+        'item_name': document.querySelector("[itemprop='name']").innerText 
+      }]
+    }
   });
 </script>
