@@ -47,9 +47,7 @@ This means the analytics from the Thundertix events will appear in your main sit
 
 | Name | Trigger Type | Event Name | Trigger Fires on |
 |---|---|---|---|
-| Thundertix Link Click  | Data Layer Variable | iframe.gtm.linkClick | All Custom Events |
 | Thundertix Page View  | Data Layer Variable | iframe.gtm.js | All Custom Events |
-| Thundertix Scroll  | Data Layer Variable | iframe.gtm.scrollDepth | All Custom Events | 
 | Thundertix Purchase  | Data Layer Variable | iframe.ticket_purchase | All Custom Events |
 
 - Create the any of the following tags you for events you wish to track:<br>Note, all of these examples use the standard GA4 events except for the custom event "ticket_purchase." At this time, Thundertix does not provide sufficient data to support using the standard GA4 purchase event. Of course, you can choose to use custom events for any or all of the events. Any custom events must be configured in Google Analytics as "Custom Definitions," and you will likely want to mark the ticket_purchase custom event as a conversion. 
@@ -57,9 +55,7 @@ This means the analytics from the Thundertix events will appear in your main sit
 {% raw %}
 | Name | Tag Type | Event Name | Event Parameters | Triggering |
 |---|---|---|---|---|
-| Thundertix Click  | GA4 event | click | page_title:<br>{{Thundertix Page Title}}<br><br>page_location:<br>{{Thundertix Page URL}} | Thundertix Link Click |
 | Thundertix Page View  | GA4 event | page_view | page_title:<br>{{Thundertix Page Title}}<br><br>page_location:<br>{{Thundertix Page URL}} | Thundertix Page View |
-| Thundertix Scroll  | GA4 event | scroll | page_title:<br>{{Thundertix Page Title}}<br><br>page_location:<br>{{Thundertix Page URL}} | Thundertix Scroll |
 | Thundertix Purchase  | GA4 event | ticket_purchase | page_title:<br>{{Thundertix Page Title}}<br><br>page_location:<br>{{Thundertix Page URL}}<br><br>value:<br>{{value}}<br>currency USD | Ticket Purchase |
 
 {% endraw %}
@@ -77,9 +73,11 @@ As your needs may be diferent than mine, you should probably consider this as an
 
 Here's my approach. I am considering the show name to be the item name, and the ticket type to be the item variant. I am ignoring the date. 
 
-I am triggerring a view_item event with a minimal ecommerce object with an item array containing just the show name displayed on that page. As I am using the "list of performances" embed, I am considering the next page, where the tickets are selected, to be the item page. If you are usng the normal event embed, the same approach should work for the event page.
+I am triggerring a view_item event with a minimal ecommerce object with an item array containing just the show name displayed on that page. I am considering the page where ticket quantities are selected, "/orders/new?performance_id=XXXXXXXX," to be the "item page." This page has the ticket price which is required for the view_item event.  If there are multiple ticket types, the price of the first ticket displayed on the page is used for the event value.
 
-The view_cart event is triggerred on the page where the payemt info is entered. (For some reason, there are two URLs for this page, /orders and /cart.) This creates a full ecommerce object. (The view_cart event doesn't seem to provide much useful data in GA4, so you could skip setting it up.)
+The begin_checkout event is triggerred on the page where the payment info is entered. (For some reason, there are two URLs for this page, /orders and /cart.) This creates a full ecommerce object.
+
+The add_payment_info event is triggerred on this same page when it is submitted. This also creates a full ecommerce object. I actually don't bother tracking this event, as I'm only triggering to get an updated ecommerce object just in case the user deleted any tickets before submitting. 
 
 The custom "ticket_purchase" event is used to trigger the ecommerce purchase. Thundertix does not supply enough information to create the required ecommerce object, but the ecommerce object from the add_payment_info event still exists and can be used instead. I do use the Thundertix provided value passed from the custom event, as I expect that to be more reliable than my scraped value from the cart page.
 
@@ -87,8 +85,8 @@ The custom "ticket_purchase" event is used to trigger the ecommerce purchase. Th
 
 #### Google Tag Manager
 - Create a "Custom HTML Tag" for item views in Tag Manager, using the script in the [view_item.js file.](https://github.com/magicalbrad/thundertixGA4/blob/main/view_item.js) It should be triggerred on window load only on the item page. For my purposes, that is /orders/new. Depending on which embed code you're using, you may need to triger on pages with a URL like /events/(event id). You may need to adjust the logic that scrapes the name and price based on the information available on the page. 
-- Create a "Custom HTML Tag" for cart views in Tag Manager, using the script in the [view_cart.js file.](https://github.com/magicalbrad/thundertixGA4/blob/main/view_cart.js) It should be triggerred on window load of the cart page. The cart page has a URL of either /orders/new or /cart, depending on whether the user is coming to it for the first time, or returning later. So, you'll need triggers for both URLs.
-- Create a "Custom HTML Tag" for adding payment info in Tag Manager, using the script in the [add_payment_info.js file.](https://github.com/magicalbrad/thundertixGA4/blob/main/view_cart.js) It should be triggerred on click of the "confirm order" button or submit of the order form. For the click trigger, use a "Click - All Elements" trigger set to fire on "click classes contains before_submit_payment."
+- Create a "Custom HTML Tag" for cart views in Tag Manager, using the script in the [begin_checkout.js file.](https://github.com/magicalbrad/thundertixGA4/blob/main/begin_checkout.js) It should be triggerred on window load of the cart page. The cart page has a URL of either /orders/new or /cart, depending on whether the user is coming to it for the first time, or returning later. So, you'll need triggers for both URLs.
+- Create a "Custom HTML Tag" for adding payment info in Tag Manager, using the script in the [add_payment_info.js file.](https://github.com/magicalbrad/thundertixGA4/blob/main/add_payment_info.js) It should be triggerred on submit of the order form.
 
 ### Parent Window (a.k.a. your site)
 
@@ -111,7 +109,7 @@ The custom "ticket_purchase" event is used to trigger the ecommerce purchase. Th
 
 | Name | Trigger Type | Event Name | Trigger Fires on |
 |---|---|---|---|
-| Thundertix View Cart  | Data Layer Variable | iframe.view_cart | All Custom Events |
+| Thundertix Begin Checkout  | Data Layer Variable | iframe.begin_checkout | All Custom Events |
 | Thundertix View Item  | Data Layer Variable | iframe.view_item | All Custom Events |
 
 - Create the following tags.
@@ -120,7 +118,7 @@ The custom "ticket_purchase" event is used to trigger the ecommerce purchase. Th
 | Name | Tag Type | Event Name | Event Parameters | Triggering |
 |---|---|---|---|---|
 | Purchase  | GA4 event | Ticket Purchase | page_title:<br>{{Thundertix Page Title}}<br><br>page_location:<br>{{Thundertix Page URL}}<br>value:<br>{{Value}}<br><br>currency:<br>{{Ecommerce Currency}}<br><br>transaction_id:<br>{{Ecommerce Transaction ID}}<br><br>items:<br>{{Ecommerce Items}} | Ticket Purchase |
-| Thundertix View Cart | GA4 event | page_view | page_title:<br>{{Thundertix Page Title}}<br><br>page_location:<br>{{Thundertix Page URL}}<br>value:<br>{{Value}}<br>currency:<br>{{Ecommerce Currency}}<br><br>items:<br>{{Ecommerce Items}} | Thundertix View Cart |
+| Thundertix begin_checkout | GA4 event | page_view | page_title:<br>{{Thundertix Page Title}}<br><br>page_location:<br>{{Thundertix Page URL}}<br>value:<br>{{Value}}<br>currency:<br>{{Ecommerce Currency}}<br><br>items:<br>{{Ecommerce Items}} | Thundertix Begin Checkout |
 | Thundertix View Item  | GA4 event | scroll | page_title:<br>{{Thundertix Page Title}}<br><br>page_location:<br>{{Thundertix Page URL}}<br><br>value:<br>{{Value}}<br><br>currency:<br>'USD'<br><br>items:<br>{{Ecommerce Items}} | Thundertix View Item |
 
 {% endraw %}
