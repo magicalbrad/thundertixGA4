@@ -20,6 +20,8 @@ This solution gets around that by having the child frame pass the event informat
 
 This means the analytics from the Thundertix events will appear in your main site's analytics account. 
 
+Note that I am explicitly triggering the Thundertix events I wish to track. This makes it unnecessary to have Google Analytics set up directly on the Thundertix page. If desired, you could add Analytics to Thundertix and then capture any additional desired events on your webpage's Analytics account.
+
 ## Implementation
 ### Thundertix Child Frame Setup
 #### Google Tag Manager
