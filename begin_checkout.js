@@ -1,11 +1,4 @@
 <script>
-  // A little functtion to decode HTML entity codes.
-  function decodeHTML(html) {
-	  var txt = document.createElement('textarea');
-	  txt.innerHTML = html;
-	  return txt.value;
-  }
-  
   // Scrape the item information off the cart page.
   // The DOM is different for mobile vs desktop layout, so code has to check.
   // Cart page has URL of either /orders or /cart (Why two URLs? Who knows!)
@@ -24,24 +17,24 @@
     }
     var nameparts = itemDesc.split(/:|Sunday,|Monday,|Tuesday,|Wednesday,|Thursday,|Friday,|Saturday,/);
     
-	  item.item_name = decodeHTML(nameparts[1]).trim(); // Show Name
-    item.item_variant = decodeHTML(nameparts[0]).trim(); // Ticket type
+	  item.item_name = nameparts[1].trim(); // Show Name
+      item.item_variant = nameparts[0].trim(); // Ticket type
 	  item.price = parseFloat(orderItem.querySelector('td:nth-child(2) span').innerText.replace("$", ""), 10);
 	  item.quantity = parseInt(orderItem.querySelector('td:nth-child(1)').innerText, 10);
     
 	  items.push(item);
   });
 
-  var value = parseFloat(document.querySelector('#order_total_value').innerText.replace("$", ""), 10);
+  var value = parseFloat(document.querySelector('#order_total_value').innerText.replace(/(,|\$)/g, ""), 10);
   var orderId = document.querySelector('#order_id').value;
   
   // Push the event onto the dataLayer
   dataLayer.push({ ecommerce: null });  // Clear the previous ecommerce object.
   dataLayer.push({
-    'event': 'view_cart',
+    'event': 'begin_checkout',
     'ecommerce': {
       'transaction_id': orderId,
-      'value': value, // Using unit price. Should this be line item total?
+      'value': value,
       'currency': 'USD',
       'items': items
     }
