@@ -31,7 +31,13 @@ Note: this is just the basic implementation. Ecommerce is more complicated, and 
 ### Thundertix Child Frame Setup
 #### Google Tag Manager
 - Create a separate [Google Tag Manager](https://tagmanager.google.com/) account for use on Thundertix, if you don't already have one.
-- Create a "Custom HTML Tag" in Tag Manager, using the script in the [child_frame.js file.](https://github.com/magicalbrad/thundertixGA4/blob/main/child_frame.js) It should be triggered on all pages. There are some optional configuration options in the file. See the comments in the file for more info. [View example inmage.](https://github.com/magicalbrad/thundertixGA4/blob/main/img/tag-sent-to-parent.png)
+- Create a "Custom HTML Tag" in Tag Manager, using the script in the [child_frame.js file.](https://github.com/magicalbrad/thundertixGA4/blob/main/child_frame.js) It should be triggered on all pages. There are some optional configuration options in the file. See the comments in the file for more info. 
+
+<details>
+  <summary>Example Image</summary>
+  
+  ![Tag: Send to Parent](img/tag-sent-to-parent.png)
+</details>
 
 #### Thundertix Admin
 - In the "Integrations & Pixel Tracking" area of the Thundertix admin, add your Google Tag Manager account ID.
