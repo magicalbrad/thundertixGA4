@@ -1,9 +1,7 @@
 # Thundertix GA4 Google Analytics Tracking
 Thundertix is an event ticketing service. They promote easyGoogle Analytics integration as a feature, but in reality it's not so simple. First, their built in integration only supports the older, soon to be discontinued "UA" version of Google Analytics. Second, their implementaion only works when visitors purchase tickets directly from the Thundertix website. At least in most modern browsers, it won't work if you are selling tickets from your website by embedding their page in an iFrame. Finally, they don't support ecommerce in analytics, which is arguably the most important data.
 
-This represents my attempt to work around those limitations, and get Google Analytics 4 implemented and working, including ecommerce. Here's an overview of my approach. Thundertix does suport using Google Tag Manager, so I'm using Tag Manager to capture the data and implement a solution to the iframe limitation. I'm scraping visible text from their pages to implement ecommerce. This is not an ideal solution for ecommerce, as it will break whenever Thundertix makes any changes. But it's the best I can do for now.
-
-Currently, it is difficult to track GA4 events in third party iframes, due to cross browser cookie blocking. This makes it difficult to track events from embedded Thundertix ticketing windows. This is a sample implementation of a way to get GA4 working through Google Tag manager using JavaScript postMessage for cross-origin communication.
+This represents my attempt to work around those limitations and get Google Analytics 4 implemented and working, including ecommerce.
 
 ## Overview
 The first hurdle is that for security reasons, browsers are blocking cookies from third party iframes. This blocking prevents analytics from working in some situations including embedded Thundertix ticketing iframe on your website. A workaround was developed by Simo Ahava. Details of Simo Ahava's implementation can be found [here.](https://www.simoahava.com/analytics/cookieless-tracking-cross-site-iframes/) I have implementd hs solution specifically to work through Tag Manager for Thundertix embeds.
@@ -20,42 +18,42 @@ This means the analytics from the Thundertix events will appear in your main sit
 Note that I am explicitly triggering the Thundertix events I wish to track. This makes it unnecessary to have Google Analytics set up directly on the Thundertix page. If desired, you could add Analytics to Thundertix and then capture any additional desired events on your webpage's Analytics account.
 
 ## Implementation
+Note: this is just the basic implementation. Ecommerce is more complicated, and will be discussed later in this document. This section will set up communication between the Thundertix iframe and your website, and will allow tracking of page views.
+
 ### Thundertix Child Frame Setup
 #### Google Tag Manager
-- Create a Google Tag Manager account for Thundertix, if you don't already have one.
-- Create a "Custom HTML Tag" in Tag Manager, using the script in the [child_frame.js file.](https://github.com/magicalbrad/thundertixGA4/blob/main/child_frame.js) It should be triggerred on all pages. There are some configuration options in the file. See the comments in the file for more info.
+- Create a seperate [Google Tag Manager](https://tagmanager.google.com/) account for use on Thundertix, if you don't already have one.
+- Create a "Custom HTML Tag" in Tag Manager, using the script in the [child_frame.js file.](https://github.com/magicalbrad/thundertixGA4/blob/main/child_frame.js) It should be triggerred on all pages. There are some optional configuration options in the file. See the comments in the file for more info.
 
 #### Thundertix Admin
 - In the "Integrations & Pixel Tracking" area of the Thundertix admin, add your Google Tag Manager account ID.
-- Also in the In the "Integrations & Pixel Tracking" area, add the code from [conversion.js](https://github.com/magicalbrad/thundertixGA4/blob/main/conversion.js) to "Conversion and Click Tracking," if you wish to track conversions. (You may need to contact their support to get that added.) 
 
 ### Parent Window (a.k.a. your site where the Thindertix frame is used)
 #### Google Tag Manager
-- Create a Google Tag Manager account for your site, if you don't already have one.
+- Create a [Google Tag Manager](https://tagmanager.google.com/) account and implement it on your site, if you don't already have it set up.
 - Create a "Google Analytics: GA4 Configuration Tag" in Tag Manager, configured for your website's GA4 account.
-- Create a "Custom HTML Tag" in Tag Manager, using the script in [parent_frame.js file.](https://github.com/magicalbrad/thundertixGA4/blob/main/parent_frame.js) There are some configuration options in the file. See the comments in the file for more info. This tag only needs to be triggered on pages that have a Thundertix iframe.
-- Create the following Tag Manager Variables: (Value is only required of you are implementing conversion tracking.)
+- Create a "Custom HTML Tag" in Tag Manager, using the script in [parent_frame.js file.](https://github.com/magicalbrad/thundertixGA4/blob/main/parent_frame.js) There is an optional configuration option in the file. See the comments in the file for more info. This tag only needs to be triggered on pages that have a Thundertix iframe.
+- Create the following Tag Manager Variables:
 
 | Name | Variable Type | Variable Name |
 |---|---|---|
 | Thundertix Page Title  | Data Layer Variable | iframe.pageData.title |
 | Thundertix Page URL  | Data Layer Variable | iframe.pageData.url |
-| value | Data Layer Variable | iframe.value |
 
 - Create the any of the following triggers for events you wish to track:
 
 | Name | Trigger Type | Event Name | Trigger Fires on |
 |---|---|---|---|
 | Thundertix Page View  | Data Layer Variable | iframe.gtm.js | All Custom Events |
-| Thundertix Purchase  | Data Layer Variable | iframe.ticket_purchase | All Custom Events |
+| Thundertix Purchase  | Data Layer Variable | iframe.gtm.js | Some Custom Events: "Thundertix Page Url contains thank_you" |
 
-- Create the any of the following tags you for events you wish to track:<br>Note, all of these examples use the standard GA4 events except for the custom event "ticket_purchase." At this time, Thundertix does not provide sufficient data to support using the standard GA4 purchase event. Of course, you can choose to use custom events for any or all of the events. Any custom events must be configured in Google Analytics as "Custom Definitions," and you will likely want to mark the ticket_purchase custom event as a conversion. 
+- Create the any of the following tags you for events you wish to track:
 
 {% raw %}
 | Name | Tag Type | Event Name | Event Parameters | Triggering |
 |---|---|---|---|---|
 | Thundertix Page View  | GA4 event | page_view | page_title:<br>{{Thundertix Page Title}}<br><br>page_location:<br>{{Thundertix Page URL}} | Thundertix Page View |
-| Thundertix Purchase  | GA4 event | ticket_purchase | page_title:<br>{{Thundertix Page Title}}<br><br>page_location:<br>{{Thundertix Page URL}}<br><br>value:<br>{{value}}<br>currency USD | Ticket Purchase |
+| Thundertix Purchase  | GA4 event | ticket_purchase | page_title:<br>{{Thundertix Page Title}}<br><br>page_location:<br>{{Thundertix Page URL}} | Ticket Purchase |
 
 {% endraw %}
 
