@@ -1,7 +1,7 @@
 **08/10/2022: Updated with simplified approach**
 
 # Thundertix GA4 Google Analytics Tracking
-Thundertix is an event ticketing service. They promote easyGoogle Analytics integration as a feature, but in reality it's not so simple.
+Thundertix is an event ticketing service. They promote easy Google Analytics integration as a feature, but in reality it's not so simple.
 
 First, their built in integration only supports the older, soon to be discontinued "UA" version of Google Analytics. 
 
@@ -14,7 +14,7 @@ This represents my attempt to work around those limitations and get Google Analy
 ## Overview
 The first hurdle is that for security reasons, browsers are blocking cookies from third party iframes. This blocking prevents analytics from working in some situations including embedded Thundertix ticketing iframe on your website.
 
-A workaround was developed by Simo Ahava. Details of Simo Ahava's implementation can be found [here.](https://www.simoahava.com/analytics/cookieless-tracking-cross-site-iframes/) I have implementd hs solution specifically to work through Tag Manager for Thundertix embeds.
+A workaround was developed by Simo Ahava. Details of Simo Ahava's implementation can be found [here.](https://www.simoahava.com/analytics/cookieless-tracking-cross-site-iframes/) I have implementd his solution specifically to work through Tag Manager for Thundertix embeds.
 
 Instead of reporting events directly to Google Analytics, the Thundertix events will be sent to your website which can then report it to Analytics.  
 
@@ -25,10 +25,8 @@ Instead of reporting events directly to Google Analytics, the Thundertix events 
 
 This means the analytics from the Thundertix events will appear in your main site's analytics account. 
 
-Note that I am explicitly triggering the Thundertix events I wish to track. This makes it unnecessary to have Google Analytics set up directly on the Thundertix page. If desired, you could add Analytics to Thundertix and then capture any additional desired events on your webpage's Analytics account.
-
 ## Implementation
-Note: this is just the basic implementation. Ecommerce is more complicated, and will be discussed later in this document. This section will set up communication between the Thundertix iframe and your website, and will allow tracking of page views.
+Note: this is just the basic implementation. Ecommerce is more complicated, and will be discussed later in this document. This section will set up communication between the Thundertix iframe and your website, and will allow tracking of page views. If desired, viewing the "Thank You" page can be set up as a GA4 conversion.
 
 ### Thundertix Child Frame Setup
 #### Google Tag Manager
