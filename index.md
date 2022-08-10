@@ -36,7 +36,7 @@ Note: this is just the basic implementation. Ecommerce is more complicated, and 
 <details>
   <summary>Example Image</summary>
   
-  ![Tag: Send to Parent](https://github.com/magicalbrad/thundertixGA4/raw/main/docs/assets/images/tag-sent-to-parent.png)
+  <img alt="Tag: Send to Parent:" src="https://github.com/magicalbrad/thundertixGA4/raw/main/docs/assets/images/tag-sent-to-parent.png">
 
 </details>
 
