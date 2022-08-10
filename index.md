@@ -1,17 +1,14 @@
 # Thundertix GA4 Google Analytics Tracking
+Thundertix is an event ticketing service. They promote easyGoogle Analytics integration as a feature, but in reality it's not so simple. First, their built in integration only supports the older, soon to be discontinued "UA" version of Google Analytics. Second, their implementaion only works when visitors purchase tickets directly from the Thundertix website. At least in most modern browsers, it won't work if you are selling tickets from your website by embedding their page in an iFrame. Finally, they don't support ecommerce in analytics, which is arguably the most important data.
+
+This represents my attempt to work around those limitations, and get Google Analytics 4 implemented and working, including ecommerce. Here's an overview of my approach. Thundertix does suport using Google Tag Manager, so I'm using Tag Manager to capture the data and implement a solution to the iframe limitation. I'm scraping visible text from their pages to implement ecommerce. This is not an ideal solution for ecommerce, as it will break whenever Thundertix makes any changes. But it's the best I can do for now.
+
 Currently, it is difficult to track GA4 events in third party iframes, due to cross browser cookie blocking. This makes it difficult to track events from embedded Thundertix ticketing windows. This is a sample implementation of a way to get GA4 working through Google Tag manager using JavaScript postMessage for cross-origin communication.
 
-I don't know whether this will actually be of use to anyone. I thought I'd share it as it took a bit of trial and error for me to get it working, so maybe this will save someone else a few headaches. For now, I won't put a lot of detail, as I don't know how useful to anyone else. I can more details later, if there is sufficient interest.
-
-## Credit
-This is an implementation of Simo Ahava's Cookieless tracking solution applied to tracking for embeded Thundertix ticketing iframes.
-
-Details of Simo Ahava's implementation can be found [here.](https://www.simoahava.com/analytics/cookieless-tracking-cross-site-iframes/)
-
 ## Overview
-Briefly, the problem is that for security reasons, browsers are blocking cookies from third party iframes. This blocking prevents analytics from working in some situations including for embedded Thundertix ticketing frame on your website. (See Simo Ahava's post above for more details of the issue.)
+The first hurdle is that for security reasons, browsers are blocking cookies from third party iframes. This blocking prevents analytics from working in some situations including embedded Thundertix ticketing iframe on your website. A workaround was developed by Simo Ahava. Details of Simo Ahava's implementation can be found [here.](https://www.simoahava.com/analytics/cookieless-tracking-cross-site-iframes/) I have implementd hs solution specifically to work through Tag Manager for Thundertix embeds.
 
-This solution gets around that by having the child frame pass the event information to the parent window to be recorded. The basic flow is something like this:
+Instead of reporting events directly to Google Analytics, the Thundertix events will be sent to your website which can then report it to Analytics.  
 
 - Google Tag Manager triggers events on the embedded Thundertix page.
 - A custom Google Tag Manager tag on the Thundrtix page sends a copy of each event to the parent window.
