@@ -1,10 +1,20 @@
+**08/10/2022: Updated with simplified approach**
+
 # Thundertix GA4 Google Analytics Tracking
-Thundertix is an event ticketing service. They promote easyGoogle Analytics integration as a feature, but in reality it's not so simple. First, their built in integration only supports the older, soon to be discontinued "UA" version of Google Analytics. Second, their implementaion only works when visitors purchase tickets directly from the Thundertix website. At least in most modern browsers, it won't work if you are selling tickets from your website by embedding their page in an iFrame. Finally, they don't support ecommerce in analytics, which is arguably the most important data.
+Thundertix is an event ticketing service. They promote easyGoogle Analytics integration as a feature, but in reality it's not so simple.
+
+First, their built in integration only supports the older, soon to be discontinued "UA" version of Google Analytics. 
+
+Second, their implementaion only works when visitors purchase tickets directly from the Thundertix website. At least in most modern browsers, it won't work if you are selling tickets from your website by embedding their page in an iFrame.
+
+Finally, they don't support ecommerce in analytics, which is arguably the most important data.
 
 This represents my attempt to work around those limitations and get Google Analytics 4 implemented and working, including ecommerce.
 
 ## Overview
-The first hurdle is that for security reasons, browsers are blocking cookies from third party iframes. This blocking prevents analytics from working in some situations including embedded Thundertix ticketing iframe on your website. A workaround was developed by Simo Ahava. Details of Simo Ahava's implementation can be found [here.](https://www.simoahava.com/analytics/cookieless-tracking-cross-site-iframes/) I have implementd hs solution specifically to work through Tag Manager for Thundertix embeds.
+The first hurdle is that for security reasons, browsers are blocking cookies from third party iframes. This blocking prevents analytics from working in some situations including embedded Thundertix ticketing iframe on your website.
+
+A workaround was developed by Simo Ahava. Details of Simo Ahava's implementation can be found [here.](https://www.simoahava.com/analytics/cookieless-tracking-cross-site-iframes/) I have implementd hs solution specifically to work through Tag Manager for Thundertix embeds.
 
 Instead of reporting events directly to Google Analytics, the Thundertix events will be sent to your website which can then report it to Analytics.  
 
@@ -45,24 +55,30 @@ Note: this is just the basic implementation. Ecommerce is more complicated, and 
 | Name | Trigger Type | Event Name | Trigger Fires on |
 |---|---|---|---|
 | Thundertix Page View  | Data Layer Variable | iframe.gtm.js | All Custom Events |
-| Thundertix Purchase  | Data Layer Variable | iframe.gtm.js | Some Custom Events: "Thundertix Page Url contains thank_you" |
 
-- Create the any of the following tags you for events you wish to track:
+- Create the the following tag:
 
 {% raw %}
 | Name | Tag Type | Event Name | Event Parameters | Triggering |
 |---|---|---|---|---|
 | Thundertix Page View  | GA4 event | page_view | page_title:<br>{{Thundertix Page Title}}<br><br>page_location:<br>{{Thundertix Page URL}} | Thundertix Page View |
-| Thundertix Purchase  | GA4 event | ticket_purchase | page_title:<br>{{Thundertix Page Title}}<br><br>page_location:<br>{{Thundertix Page URL}} | Ticket Purchase |
 
 {% endraw %}
 
 #### Your Website
 - Install Google Tag Manager on your website.
 
-Note that if you do use conversion tracking, you'll need to set up the "ticket_purchase" custom event in your main site's Google Analytics account. It should be added as a custom definition, and marked as a conversion.
+#### Notes and Additional Options
+You can set up customers viewing the "Thank You" page to be a conversion in Analytics. You'd need to create a custom event in Analytics, named something like "thank_you_page_view." That event will use the following matching conditions:
 
-## Really Ugly Ecommerce Implementation Experiment
+- event_name equals page_view
+- page_location contains thank_you
+
+You'll then need to mark this new event as a conversion.
+
+If you wish to track more events, you can manually add them to the data layer. You also could install GA4 on the Thundertix page through tag manager. All GA4 events would be pased up to your page. In either case, you'd also need to add tags in your main website's tag manager to monitor for those events and trigger the appropriate GA4 event on your site.
+
+## Ecommerce Implementation
 
 Thundertix doesn't support GA4 ecommerce. This is my attempt to make it work anyway. It scrapes the necessary data off the page, which is a fragile hack that will break if they make even minor changes to the ticketing pages. 
 
@@ -72,18 +88,15 @@ Here's my approach. I am considering the show name to be the item name, and the 
 
 I am triggerring a view_item event with a minimal ecommerce object with an item array containing just the show name displayed on that page. I am considering the page where ticket quantities are selected, "/orders/new?performance_id=XXXXXXXX," to be the "item page." This page has the ticket price which is required for the view_item event.  If there are multiple ticket types, the price of the first ticket displayed on the page is used for the event value.
 
-The begin_checkout event is triggerred on the page where the payment info is entered. (For some reason, there are two URLs for this page, /orders and /cart.) This creates a full ecommerce object.
+The add_payment_info event is triggerred on this same page when it is submitted. This creates a full ecommerce object based on what was in the cart at the time payment was attempted. I actually don't bother tracking this event, as I'm only triggering this to get the ecommerce object. 
 
-The add_payment_info event is triggerred on this same page when it is submitted. This also creates a full ecommerce object. I actually don't bother tracking this event, as I'm only triggering to get an updated ecommerce object just in case the user deleted any tickets before submitting. 
-
-The custom "ticket_purchase" event is used to trigger the ecommerce purchase. Thundertix does not supply enough information to create the required ecommerce object, but the ecommerce object from the add_payment_info event still exists and can be used instead. I do use the Thundertix provided value passed from the custom event, as I expect that to be more reliable than my scraped value from the cart page.
+A purchase event is triggerred when the "Thank You" page is viewed. There isn't sufficient information on this page to create an ecommerce object. However, the ecommerce object created for the add_payment_info trigger still exists.
 
 ### Thundertix Child Frame Setup
 
 #### Google Tag Manager
 - Create a "Custom HTML Tag" for item views in Tag Manager, using the script in the [view_item.js file.](https://github.com/magicalbrad/thundertixGA4/blob/main/view_item.js) It should be triggerred on window load only on the item page. For my purposes, that is /orders/new. Depending on which embed code you're using, you may need to triger on pages with a URL like /events/(event id). You may need to adjust the logic that scrapes the name and price based on the information available on the page. 
-- Create a "Custom HTML Tag" for cart views in Tag Manager, using the script in the [begin_checkout.js file.](https://github.com/magicalbrad/thundertixGA4/blob/main/begin_checkout.js) It should be triggerred on window load of the cart page. The cart page has a URL of either /orders/new or /cart, depending on whether the user is coming to it for the first time, or returning later. So, you'll need triggers for both URLs.
-- Create a "Custom HTML Tag" for adding payment info in Tag Manager, using the script in the [add_payment_info.js file.](https://github.com/magicalbrad/thundertixGA4/blob/main/add_payment_info.js) It should be triggerred on submit of the order form.
+- Create a "Custom HTML Tag" for adding payment info in Tag Manager, using the script in the [add_payment_info.js file.](https://github.com/magicalbrad/thundertixGA4/blob/main/add_payment_info.js) It should be triggerred on submit of the order form. The cart page has a URL of either /orders/new or /cart, depending on whether the user is coming to it for the first time, or returning later. So, you'll need triggers for both URLs.
 
 ### Parent Window (a.k.a. your site)
 
@@ -106,7 +119,7 @@ The custom "ticket_purchase" event is used to trigger the ecommerce purchase. Th
 
 | Name | Trigger Type | Event Name | Trigger Fires on |
 |---|---|---|---|
-| Thundertix Begin Checkout  | Data Layer Variable | iframe.begin_checkout | All Custom Events |
+| Thundertix Thank You Page View  | Custom Event | iframe.gtn.js | Some Custom Events: Thundertix Page URL contains thank_you |
 | Thundertix View Item  | Data Layer Variable | iframe.view_item | All Custom Events |
 
 - Create the following tags.
@@ -114,8 +127,10 @@ The custom "ticket_purchase" event is used to trigger the ecommerce purchase. Th
 {% raw %}
 | Name | Tag Type | Event Name | Event Parameters | Triggering |
 |---|---|---|---|---|
-| Purchase  | GA4 event | Ticket Purchase | page_title:<br>{{Thundertix Page Title}}<br><br>page_location:<br>{{Thundertix Page URL}}<br>value:<br>{{Value}}<br><br>currency:<br>{{Ecommerce Currency}}<br><br>transaction_id:<br>{{Ecommerce Transaction ID}}<br><br>items:<br>{{Ecommerce Items}} | Ticket Purchase |
-| Thundertix begin_checkout | GA4 event | page_view | page_title:<br>{{Thundertix Page Title}}<br><br>page_location:<br>{{Thundertix Page URL}}<br>value:<br>{{Value}}<br>currency:<br>{{Ecommerce Currency}}<br><br>items:<br>{{Ecommerce Items}} | Thundertix Begin Checkout |
-| Thundertix View Item  | GA4 event | scroll | page_title:<br>{{Thundertix Page Title}}<br><br>page_location:<br>{{Thundertix Page URL}}<br><br>value:<br>{{Value}}<br><br>currency:<br>'USD'<br><br>items:<br>{{Ecommerce Items}} | Thundertix View Item |
+| Purchase  | GA4 event | purchase | page_title:<br>{{Thundertix Page Title}}<br><br>page_location:<br>{{Thundertix Page URL}}<br>value:<br>{{Ecommerce Value}}<br><br>currency:<br>{{Ecommerce Currency}}<br><br>transaction_id:<br>{{Ecommerce Transaction ID}}<br><br>items:<br>{{Ecommerce Items}} | Thundertix Thank You Page View |
+| Thundertix View Item  | GA4 event | view_item | page_title:<br>{{Thundertix Page Title}}<br><br>page_location:<br>{{Thundertix Page URL}}<br><br>value:<br>{{Value}}<br><br>currency:<br>'USD'<br><br>items:<br>{{Ecommerce Items}} | Thundertix View Item |
 
 {% endraw %}
+
+#### Notes and Additional Options
+You can add tags to track additional ecommerce events. You can find sample code for an HTML tag to trigger a begin_checkout event when the cart is viewed here: (https://github.com/magicalbrad/thundertixGA4/blob/main/begin_checkout.js) It should be triggerred on window load of the cart page. 
