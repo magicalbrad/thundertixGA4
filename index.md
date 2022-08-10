@@ -31,7 +31,7 @@ Note: this is just the basic implementation. Ecommerce is more complicated, and 
 ### Thundertix Child Frame Setup
 #### Google Tag Manager
 - Create a seperate [Google Tag Manager](https://tagmanager.google.com/) account for use on Thundertix, if you don't already have one.
-- Create a "Custom HTML Tag" in Tag Manager, using the script in the [child_frame.js file.](https://github.com/magicalbrad/thundertixGA4/blob/main/child_frame.js) It should be triggerred on all pages. There are some optional configuration options in the file. See the comments in the file for more info.
+- Create a "Custom HTML Tag" in Tag Manager, using the script in the [child_frame.js file.](https://github.com/magicalbrad/thundertixGA4/blob/main/child_frame.js) It should be triggerred on all pages. There are some optional configuration options in the file. See the comments in the file for more info. [View example inmage.](https://github.com/magicalbrad/thundertixGA4/blob/main/img/tag-sent-to-parent.png)
 
 #### Thundertix Admin
 - In the "Integrations & Pixel Tracking" area of the Thundertix admin, add your Google Tag Manager account ID.
@@ -39,20 +39,22 @@ Note: this is just the basic implementation. Ecommerce is more complicated, and 
 ### Parent Window (a.k.a. your site where the Thindertix frame is used)
 #### Google Tag Manager
 - Create a [Google Tag Manager](https://tagmanager.google.com/) account and implement it on your site, if you don't already have it set up.
-- Create a "Google Analytics: GA4 Configuration Tag" in Tag Manager, configured for your website's GA4 account.
-- Create a "Custom HTML Tag" in Tag Manager, using the script in [parent_frame.js file.](https://github.com/magicalbrad/thundertixGA4/blob/main/parent_frame.js) There is an optional configuration option in the file. See the comments in the file for more info. This tag only needs to be triggered on pages that have a Thundertix iframe.
+- Create a "Google Analytics: GA4 Configuration Tag" in Tag Manager, configured for your website's GA4 account, if you don't already have one set up. [View example image.](https://github.com/magicalbrad/thundertixGA4/blob/main/img/tag-ga4.png)
+- Create a "Custom HTML Tag" in Tag Manager, using the script in [parent_frame.js file.](https://github.com/magicalbrad/thundertixGA4/blob/main/parent_frame.js) There is an optional configuration option in the file. See the comments in the file for more info. This tag only needs to be triggered on pages that have a Thundertix iframe. [View example image.](https://github.com/magicalbrad/thundertixGA4/blob/main/img/tag_parent_logic.png)
 - Create the following Tag Manager Variables:
 
 | Name | Variable Type | Variable Name |
 |---|---|---|
 | Thundertix Page Title  | Data Layer Variable | iframe.pageData.title |
 | Thundertix Page URL  | Data Layer Variable | iframe.pageData.url |
+Example images: [Thundertix Page Title](https://github.com/magicalbrad/thundertixGA4/blob/main/img/var_page_title.png), [Thundertix Page URL](https://github.com/magicalbrad/thundertixGA4/blob/main/img/var_page_url.png)
 
-- Create the any of the following triggers for events you wish to track:
+- Create the following trigger:
 
 | Name | Trigger Type | Event Name | Trigger Fires on |
 |---|---|---|---|
-| Thundertix Page View  | Data Layer Variable | iframe.gtm.js | All Custom Events |
+| Thundertix Page View | Custom Event | iframe.gtm.js | All Custom Events |
+[Example image](https://github.com/magicalbrad/thundertixGA4/blob/main/img/trigger_page_view.png)
 
 - Create the the following tag:
 
@@ -60,7 +62,7 @@ Note: this is just the basic implementation. Ecommerce is more complicated, and 
 | Name | Tag Type | Event Name | Event Parameters | Triggering |
 |---|---|---|---|---|
 | Thundertix Page View  | GA4 event | page_view | page_title:<br>{{Thundertix Page Title}}<br><br>page_location:<br>{{Thundertix Page URL}} | Thundertix Page View |
-
+[Example image](https://github.com/magicalbrad/thundertixGA4/blob/main/img/tag_page_view.png)
 {% endraw %}
 
 #### Your Website
