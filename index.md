@@ -36,7 +36,7 @@ Note: this is just the basic implementation. Ecommerce is more complicated, and 
 <details>
   <summary>Example Image</summary>
   
-  ![Tag: Send to Parent](img/tag-sent-to-parent.png)
+  ![Tag: Send to Parent](/thundertixGA4/assets/images/tag-sent-to-parent.png)
 </details>
 
 #### Thundertix Admin
