@@ -47,6 +47,7 @@ Note: this is just the basic implementation. Ecommerce is more complicated, and 
 |---|---|---|
 | Thundertix Page Title  | Data Layer Variable | iframe.pageData.title |
 | Thundertix Page URL  | Data Layer Variable | iframe.pageData.url |
+
 Example images: [Thundertix Page Title](https://github.com/magicalbrad/thundertixGA4/blob/main/img/var_page_title.png), [Thundertix Page URL](https://github.com/magicalbrad/thundertixGA4/blob/main/img/var_page_url.png)
 
 - Create the following trigger:
@@ -54,6 +55,7 @@ Example images: [Thundertix Page Title](https://github.com/magicalbrad/thunderti
 | Name | Trigger Type | Event Name | Trigger Fires on |
 |---|---|---|---|
 | Thundertix Page View | Custom Event | iframe.gtm.js | All Custom Events |
+
 [Example image](https://github.com/magicalbrad/thundertixGA4/blob/main/img/trigger_page_view.png)
 
 - Create the the following tag:
@@ -62,8 +64,9 @@ Example images: [Thundertix Page Title](https://github.com/magicalbrad/thunderti
 | Name | Tag Type | Event Name | Event Parameters | Triggering |
 |---|---|---|---|---|
 | Thundertix Page View  | GA4 event | page_view | page_title:<br>{{Thundertix Page Title}}<br><br>page_location:<br>{{Thundertix Page URL}} | Thundertix Page View |
-[Example image](https://github.com/magicalbrad/thundertixGA4/blob/main/img/tag_page_view.png)
 {% endraw %}
+
+[Example image](https://github.com/magicalbrad/thundertixGA4/blob/main/img/tag_page_view.png)
 
 #### Your Website
 - Install Google Tag Manager on your website.
