@@ -45,8 +45,22 @@ Note: this is just the basic implementation. Ecommerce is more complicated, and 
 ### Parent Window (a.k.a. your site where the Thundertix frame is used)
 #### Google Tag Manager
 - Create a [Google Tag Manager](https://tagmanager.google.com/) account and implement it on your site, if you don't already have it set up.
-- Create a "Google Analytics: GA4 Configuration Tag" in Tag Manager, configured for your website's GA4 account, if you don't already have one set up. [View example image.](https://github.com/magicalbrad/thundertixGA4/blob/main/img/tag-ga4.png)
-- Create a "Custom HTML Tag" in Tag Manager, using the script in [parent_frame.js file.](https://github.com/magicalbrad/thundertixGA4/blob/main/parent_frame.js) There is an optional configuration option in the file. See the comments in the file for more info. This tag only needs to be triggered on pages that have a Thundertix iframe. [View example image.](https://github.com/magicalbrad/thundertixGA4/blob/main/img/tag_parent_logic.png)
+- Create a "Google Analytics: GA4 Configuration Tag" in Tag Manager, configured for your website's GA4 account, if you don't already have one set up.
+
+<details>
+  <summary>Example Image</summary>
+  
+  ![Tag: GA4](/img/tag-ga4.png)
+</details>
+
+- Create a "Custom HTML Tag" in Tag Manager, using the script in [parent_frame.js file.](https://github.com/magicalbrad/thundertixGA4/blob/main/parent_frame.js) There is an optional configuration option in the file. See the comments in the file for more info. This tag only needs to be triggered on pages that have a Thundertix iframe.
+
+<details>
+  <summary>Example Image</summary>
+  
+  ![Tag: Parent Logic](/img/tag_parent_logic.png)
+</details>
+
 - Create the following Tag Manager Variables:
 
 | Name | Variable Type | Variable Name |
@@ -54,7 +68,17 @@ Note: this is just the basic implementation. Ecommerce is more complicated, and 
 | Thundertix Page Title  | Data Layer Variable | iframe.pageData.title |
 | Thundertix Page URL  | Data Layer Variable | iframe.pageData.url |
 
-Example images: [Thundertix Page Title](https://github.com/magicalbrad/thundertixGA4/blob/main/img/var_page_title.png), [Thundertix Page URL](https://github.com/magicalbrad/thundertixGA4/blob/main/img/var_page_url.png)
+<details>
+  <summary>Thundertix Page Title Example Image</summary>
+  
+  ![Tag: Thundertix Page Title](img/var_page_title.png)
+</details>
+
+<details>
+  <summary>Thundertix Page URL Example Image</summary>
+  
+  ![Tag: Thundertix Page URL](img/var_page_url.png)
+</details>
 
 - Create the following trigger:
 
@@ -62,7 +86,11 @@ Example images: [Thundertix Page Title](https://github.com/magicalbrad/thunderti
 |---|---|---|---|
 | Thundertix Page View | Custom Event | iframe.gtm.js | All Custom Events |
 
-[Example image](https://github.com/magicalbrad/thundertixGA4/blob/main/img/trigger_page_view.png)
+<details>
+  <summary>Example Image</summary>
+  
+  ![Trigger: Page View](img/trigger_page_view.png)
+</details>
 
 - Create the following tag:
 
@@ -73,7 +101,11 @@ Example images: [Thundertix Page Title](https://github.com/magicalbrad/thunderti
 
 {% endraw %}
 
-[Example image](https://github.com/magicalbrad/thundertixGA4/blob/main/img/tag_page_view.png)
+<details>
+  <summary>Example Image</summary>
+  
+  ![Tag: Page View](img/tag_page_view.png)
+</details>
 
 #### Your Website
 - Install Google Tag Manager on your website.
