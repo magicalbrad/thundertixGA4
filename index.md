@@ -36,7 +36,7 @@ Note: this is just the basic implementation. Ecommerce is more complicated, and 
 <details>
   <summary>Example Image</summary>
   
-  <img alt="Tag: Send to Parent:" src="https://github.com/magicalbrad/thundertixGA4/raw/main/docs/assets/images/tag-sent-to-parent.png">
+ <a href="https://github.com/magicalbrad/thundertixGA4/raw/main/docs/assets/images/tag-sent-to-parent.png"><img alt="Tag: Send to Parent" src="https://github.com/magicalbrad/thundertixGA4/raw/main/docs/assets/images/tag-sent-to-parent.png"></a>
 
 </details>
 
@@ -51,7 +51,8 @@ Note: this is just the basic implementation. Ecommerce is more complicated, and 
 <details>
   <summary>Example Image</summary>
   
-  ![Tag: GA4](/img/tag-ga4.png)
+   <a href="https://github.com/magicalbrad/thundertixGA4/raw/main/docs/assets/images/tag-ga4.png"><img alt="Tag: GA4" src="https://github.com/magicalbrad/thundertixGA4/raw/main/docs/assets/images/tag-ga4.png"></a>
+  
 </details>
 
 - Create a "Custom HTML Tag" in Tag Manager, using the script in [parent_frame.js file.](https://github.com/magicalbrad/thundertixGA4/blob/main/parent_frame.js) There is an optional configuration option in the file. See the comments in the file for more info. This tag only needs to be triggered on pages that have a Thundertix iframe.
@@ -59,7 +60,8 @@ Note: this is just the basic implementation. Ecommerce is more complicated, and 
 <details>
   <summary>Example Image</summary>
   
-  ![Tag: Parent Logic](/img/tag_parent_logic.png)
+   <a href="https://github.com/magicalbrad/thundertixGA4/raw/main/docs/assets/images/tag_parent_logic.png"><img alt="Tag: Parent Logic" src="https://github.com/magicalbrad/thundertixGA4/raw/main/docs/assets/images/tag_parent_logic.png"></a>
+
 </details>
 
 - Create the following Tag Manager Variables:
@@ -72,13 +74,15 @@ Note: this is just the basic implementation. Ecommerce is more complicated, and 
 <details>
   <summary>Thundertix Page Title Example Image</summary>
   
-  ![Tag: Thundertix Page Title](img/var_page_title.png)
+   <a href="https://github.com/magicalbrad/thundertixGA4/raw/main/docs/assets/images/var_page_title.png"><img alt="Tag: Thundertix Page Title" src="https://github.com/magicalbrad/thundertixGA4/raw/main/docs/assets/images/var_page_title.png"></a>
+
 </details>
 
 <details>
   <summary>Thundertix Page URL Example Image</summary>
   
-  ![Tag: Thundertix Page URL](img/var_page_url.png)
+   <a href="https://github.com/magicalbrad/thundertixGA4/raw/main/docs/assets/images/var_page_url.png"><img alt="Tag: Thundertix Page URL" src="https://github.com/magicalbrad/thundertixGA4/raw/main/docs/assets/images/var_page_url.png"></a>
+
 </details>
 
 - Create the following trigger:
@@ -90,7 +94,8 @@ Note: this is just the basic implementation. Ecommerce is more complicated, and 
 <details>
   <summary>Example Image</summary>
   
-  ![Trigger: Page View](img/trigger_page_view.png)
+   <a href="https://github.com/magicalbrad/thundertixGA4/raw/main/docs/assets/images/trigger_page_view.png"><img alt="Trigger: Thundertix Page View" src="https://github.com/magicalbrad/thundertixGA4/raw/main/docs/assets/images/trigger_page_view.png"></a>
+
 </details>
 
 - Create the following tag:
@@ -105,7 +110,8 @@ Note: this is just the basic implementation. Ecommerce is more complicated, and 
 <details>
   <summary>Example Image</summary>
   
-  ![Tag: Page View](img/tag_page_view.png)
+   <a href="https://github.com/magicalbrad/thundertixGA4/raw/main/docs/assets/images/tag_page_view.png"><img alt="Tag: Page View" src="https://github.com/magicalbrad/thundertixGA4/raw/main/docs/assets/images/tag_page_view.png"></a>
+
 </details>
 
 #### Your Website
