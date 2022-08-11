@@ -37,7 +37,7 @@ Note: this is just the basic implementation. Ecommerce is more complicated, and 
 
 - Create a "Custom HTML Tag" in Tag Manager, using the script in the [child_frame.js file.](https://github.com/magicalbrad/thundertixGA4/blob/main/child_frame.js) It should be triggered on all pages. There are some optional configuration options in the file. See the comments in the file for more info. 
 
-<details style="margin-bottom: 1.5em">
+<details style="cursor: pointer;margin-bottom: 1.5em">
   <summary>Example Image</summary>
   
  <a href="https://github.com/magicalbrad/thundertixGA4/raw/main/docs/assets/images/tag-sent-to-parent.png"><img alt="Tag: Send to Parent" src="https://github.com/magicalbrad/thundertixGA4/raw/main/docs/assets/images/tag-sent-to-parent.png"></a>
@@ -54,7 +54,7 @@ Note: this is just the basic implementation. Ecommerce is more complicated, and 
 
 - Create a "Google Analytics: GA4 Configuration Tag" in Tag Manager, configured for your website's GA4 account, if you don't already have one set up.
 
-<details style="margin-bottom: 1.5em">
+<details style="cursor: pointer;margin-bottom: 1.5em">
   <summary>Example Image</summary>
   
    <a href="https://github.com/magicalbrad/thundertixGA4/raw/main/docs/assets/images/tag-ga4.png"><img alt="Tag: GA4" src="https://github.com/magicalbrad/thundertixGA4/raw/main/docs/assets/images/tag-ga4.png"></a>
@@ -64,7 +64,7 @@ Note: this is just the basic implementation. Ecommerce is more complicated, and 
 
 - Create a "Custom HTML Tag" in Tag Manager, using the script in [parent_frame.js file.](https://github.com/magicalbrad/thundertixGA4/blob/main/parent_frame.js) There is an optional configuration option in the file. See the comments in the file for more info. This tag should only be triggered on pages of your site that have a Thundertix iframe embed.
 
-<details style="margin-bottom: 1.5em">
+<details style="cursor: pointer;margin-bottom: 1.5em">
   <summary>Example Image</summary>
   
    <a href="https://github.com/magicalbrad/thundertixGA4/raw/main/docs/assets/images/tag_parent_logic.png"><img alt="Tag: Parent Logic" src="https://github.com/magicalbrad/thundertixGA4/raw/main/docs/assets/images/tag_parent_logic.png"></a>
@@ -79,14 +79,14 @@ Note: this is just the basic implementation. Ecommerce is more complicated, and 
 | Thundertix Page Title  | Data Layer Variable | iframe.pageData.title |
 | Thundertix Page URL  | Data Layer Variable | iframe.pageData.url |
 
-<details>
+<details style="cursor: pointer;">
   <summary>Thundertix Page Title Example Image</summary>
   
    <a href="https://github.com/magicalbrad/thundertixGA4/raw/main/docs/assets/images/var_page_title.png"><img alt="Tag: Thundertix Page Title" src="https://github.com/magicalbrad/thundertixGA4/raw/main/docs/assets/images/var_page_title.png"></a>
 
 </details>
 
-<details style="margin-bottom: 1.5em">
+<details style="cursor: pointer;margin-bottom: 1.5em">
   <summary>Thundertix Page URL Example Image</summary>
   
    <a href="https://github.com/magicalbrad/thundertixGA4/raw/main/docs/assets/images/var_page_url.png"><img alt="Tag: Thundertix Page URL" src="https://github.com/magicalbrad/thundertixGA4/raw/main/docs/assets/images/var_page_url.png"></a>
@@ -100,7 +100,7 @@ Note: this is just the basic implementation. Ecommerce is more complicated, and 
 |---|---|---|---|
 | Thundertix Page View | Custom Event | iframe.gtm.js | All Custom Events |
 
-<details style="margin-bottom: 1.5em">
+<details style="cursor: pointer;margin-bottom: 1.5em">
   <summary>Example Image</summary>
   
    <a href="https://github.com/magicalbrad/thundertixGA4/raw/main/docs/assets/images/trigger_page_view.png"><img alt="Trigger: Thundertix Page View" src="https://github.com/magicalbrad/thundertixGA4/raw/main/docs/assets/images/trigger_page_view.png"></a>
@@ -117,7 +117,7 @@ Note: this is just the basic implementation. Ecommerce is more complicated, and 
 
 {% endraw %}
 
-<details style="margin-bottom: 1.5em">
+<details style="cursor: pointer;margin-bottom: 1.5em">
   <summary>Example Image</summary>
   
    <a href="https://github.com/magicalbrad/thundertixGA4/raw/main/docs/assets/images/tag_page_view.png"><img alt="Tag: Page View" src="https://github.com/magicalbrad/thundertixGA4/raw/main/docs/assets/images/tag_page_view.png"></a>
@@ -176,14 +176,14 @@ A purchase event is triggered when the "Thank You" page is viewed. There isn't s
 | View Item | Page View - Window Loaded |  Some Window Loaded Events: Page Path equals /orders/new |
 | Purchase Form Submit | Form Submission | Wait for Tags: 1000 ms <br><br> Form ID equals purchase_order_form <br><br> All Forms | 
 
-<details>
+<details style="cursor: pointer;">
   <summary>View Item Example Image</summary>
   
    <a href="https://github.com/magicalbrad/thundertixGA4/raw/main/docs/assets/images/trigger_view_item.png"><img alt="Trigger: View Item" src="https://github.com/magicalbrad/thundertixGA4/raw/main/docs/assets/images/trigger_view_item.png"></a>
 
 </details>
 
-<details style="margin-bottom: 1.5em">
+<details style="cursor: pointer;margin-bottom: 1.5em">
   <summary>Purchase Form Submit Example Image</summary>
   
    <a href="https://github.com/magicalbrad/thundertixGA4/raw/main/docs/assets/images/trigger_purchase_form_submit.png"><img alt="Trigger: Purchase Form Submit" src="https://github.com/magicalbrad/thundertixGA4/raw/main/docs/assets/images/trigger_purchase_form_submit.png"></a>
@@ -197,55 +197,99 @@ A purchase event is triggered when the "Thank You" page is viewed. There isn't s
 | View Item  | Custom HTML | Contents of [view_item.js file](https://github.com/magicalbrad/thundertixGA4/blob/main/view_item.js) | View Item |
 | Add Payment Info  | Custom HTML | Contents of [add_payment_info.js file](https://github.com/magicalbrad/thundertixGA4/blob/main/add_payment_info.js) | Purchase Form Submit |
 
-<details>
+<details style="cursor: pointer;">
   <summary>View Item Example Image</summary>
   
    <a href="https://github.com/magicalbrad/thundertixGA4/raw/main/docs/assets/images/tag_view_item.png"><img alt="Tag: View Item" src="https://github.com/magicalbrad/thundertixGA4/raw/main/docs/assets/images/tag_view_item.png"></a>
 
 </details>
 
-<details style="margin-bottom: 1.5em">
+<details style="cursor: pointer;margin-bottom: 1.5em">
   <summary>Add Payment Info Example Image</summary>
   
    <a href="https://github.com/magicalbrad/thundertixGA4/raw/main/docs/assets/images/tag_add_payment_info.png"><img alt="Tag: Add Payment Info" src="https://github.com/magicalbrad/thundertixGA4/raw/main/docs/assets/images/tag_add_payment_info.png"></a>
 
 </details>
 
-
-
-
-
-
-
-
-
-
-
-
-
 ### Parent Window (a.k.a. your site)
 
 #### Google Tag Manager
 
-- Create the following Tag Manager Variables:
+- Create the following additional Tag Manager Variables:
 
-(This assumes the variables in the sections above have already been created.)
+(This assumes the Thundertix Page Title and URL variables from earlier on this page have already been created.)
 
 | Name | Variable Type | Variable Name |
 |---|---|---|
+| Currency | Data Layer Variable | iframe.currency |
 | Ecommerce Currency | Data Layer Variable | iframe.ecommerce.currency |
 | Ecommerce Items | Data Layer Variable | iframe.ecommerce.items |
 | Ecommerce Transaction ID | Data Layer Variable | iframe.ecommerce.transaction_id |
 | Ecommerce Value | Data Layer Variable | iframe.ecommerce.value |
-| Currency | Data Layer Variable | iframe.currency |
+| Value | Data Layer Variable | iframe.value |
 
+<details style="cursor: pointer;">
+  <summary>Currency Example Image</summary>
+  
+   <a href="https://github.com/magicalbrad/thundertixGA4/raw/main/docs/assets/images/var_currency.png"><img alt="Variable: Currency" src="https://github.com/magicalbrad/thundertixGA4/raw/main/docs/assets/images/var_currency.png"></a>
+
+</details>
+
+<details style="cursor: pointer;">
+  <summary>Ecommerce Currency Example Image</summary>
+  
+   <a href="https://github.com/magicalbrad/thundertixGA4/raw/main/docs/assets/images/var_ecommerce_currency.png"><img alt="Variable: Ecommerce Currency" src="https://github.com/magicalbrad/thundertixGA4/raw/main/docs/assets/images/var_ecommerce_currency.png"></a>
+
+</details>
+
+<details style="cursor: pointer;">
+  <summary>Ecommerce Items Example Image</summary>
+  
+   <a href="https://github.com/magicalbrad/thundertixGA4/raw/main/docs/assets/images/var_ecommerce_items.png"><img alt="Variable: Ecommerce Items" src="https://github.com/magicalbrad/thundertixGA4/raw/main/docs/assets/images/var_ecommerce_items.png"></a>
+
+</details>
+
+<details style="cursor: pointer;">
+  <summary>Ecommerce Transaction ID Example Image</summary>
+  
+   <a href="https://github.com/magicalbrad/thundertixGA4/raw/main/docs/assets/images/var_ecommerce_transaction_id.png"><img alt="Variable: Ecommerce Transaction ID" src="https://github.com/magicalbrad/thundertixGA4/raw/main/docs/assets/images/var_ecommerce_transaction_id.png"></a>
+
+</details>
+
+<details style="cursor: pointer;">
+  <summary>Ecommerce Value Example Image</summary>
+  
+   <a href="https://github.com/magicalbrad/thundertixGA4/raw/main/docs/assets/images/var_ecommerce_value.png"><img alt="Variable: Ecommerce Value" src="https://github.com/magicalbrad/thundertixGA4/raw/main/docs/assets/images/var_ecommerce_value.png"></a>
+
+</details>
+
+<details style="cursor: pointer;margin-bottom: 1.5em">
+  <summary>Value Example Image</summary>
+  
+   <a href="https://github.com/magicalbrad/thundertixGA4/raw/main/docs/assets/images/var_value.png"><img alt="Variable: Value" src="https://github.com/magicalbrad/thundertixGA4/raw/main/docs/assets/images/var_value.png"></a>
+
+</details>
 
 - Create the following triggers:
 
 | Name | Trigger Type | Event Name | Trigger Fires on |
 |---|---|---|---|
-| Thundertix Thank You Page View  | Custom Event | iframe.gtn.js | Some Custom Events: Thundertix Page URL contains thank_you |
+| Thundertix Thank You Page View  | Custom Event | iframe.gtm.js | Some Custom Events: Thundertix Page URL contains thank_you |
 | Thundertix View Item  | Data Layer Variable | iframe.view_item | All Custom Events |
+
+<details style="cursor: pointer;">
+  <summary>Thundertix Thank You Page View Example Image</summary>
+  
+   <a href="https://github.com/magicalbrad/thundertixGA4/raw/main/docs/assets/images/trigger_thank_you.png"><img alt="Trigger: Thundertix Thank You Page View" src="https://github.com/magicalbrad/thundertixGA4/raw/main/docs/assets/images/trigger_thank_you.png"></a>
+
+</details>
+
+<details style="cursor: pointer;margin-bottom: 1.5em">
+  <summary>Thundertix View Item Example Image</summary>
+  
+   <a href="https://github.com/magicalbrad/thundertixGA4/raw/main/docs/assets/images/trigger_thundertix_view_item.png"><img alt="Trigger: Thundertix View Item" src="https://github.com/magicalbrad/thundertixGA4/raw/main/docs/assets/images/trigger_thundertix_view_item.png"></a>
+
+</details>
 
 - Create the following tags.
 
@@ -253,9 +297,22 @@ A purchase event is triggered when the "Thank You" page is viewed. There isn't s
 | Name | Tag Type | Event Name | Event Parameters | Triggering |
 |---|---|---|---|---|
 | Purchase  | GA4 event | purchase | page_title:<br>{{Thundertix Page Title}}<br><br>page_location:<br>{{Thundertix Page URL}}<br>value:<br>{{Ecommerce Value}}<br><br>currency:<br>{{Ecommerce Currency}}<br><br>transaction_id:<br>{{Ecommerce Transaction ID}}<br><br>items:<br>{{Ecommerce Items}} | Thundertix Thank You Page View |
-| Thundertix View Item  | GA4 event | view_item | page_title:<br>{{Thundertix Page Title}}<br><br>page_location:<br>{{Thundertix Page URL}}<br><br>value:<br>{{Value}}<br><br>currency:<br>'USD'<br><br>items:<br>{{Ecommerce Items}} | Thundertix View Item |
+| Thundertix View Item  | GA4 event | view_item | page_title:<br>{{Thundertix Page Title}}<br><br>page_location:<br>{{Thundertix Page URL}}<br><br>value:<br>{{Value}}<br><br>currency:<br>{{Currency}}<br><br>items:<br>{{Ecommerce Items}} | Thundertix View Item |
 
 {% endraw %}
+<details style="cursor: pointer;">
+  <summary>Purchase Example Image</summary>
+  
+   <a href="https://github.com/magicalbrad/thundertixGA4/raw/main/docs/assets/images/tag_purchase.png"><img alt="Tag: Purchase" src="https://github.com/magicalbrad/thundertixGA4/raw/main/docs/assets/images/tag_purchase.png"></a>
+
+</details>
+
+<details style="cursor: pointer;margin-bottom: 1.5em">
+  <summary>Thundertix View Item Example Image</summary>
+  
+   <a href="https://github.com/magicalbrad/thundertixGA4/raw/main/docs/assets/images/tag_thundertix_view_item.png"><img alt="Tag: Thundertix View Item" src="https://github.com/magicalbrad/thundertixGA4/raw/main/docs/assets/images/tag_thundertix_view_item.png"></a>
+
+</details>
 
 #### Notes and Additional Options
 You can add tags to track additional ecommerce events. For example, you can find sample code for an HTML tag to trigger a begin_checkout event when the cart is viewed [here.](https://github.com/magicalbrad/thundertixGA4/blob/main/begin_checkout.js) (It is basically just a clone of the add payment info code with a different event.) It would be triggered on window load of the cart page.
