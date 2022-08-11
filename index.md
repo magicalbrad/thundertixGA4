@@ -314,5 +314,7 @@ A purchase event is triggered when the "Thank You" page is viewed. There isn't s
 
 </details>
 
-#### Notes and Additional Options
-You can add tags to track additional ecommerce events. For example, you can find sample code for an HTML tag to trigger a begin_checkout event when the cart is viewed [here.](https://github.com/magicalbrad/thundertixGA4/blob/main/begin_checkout.js) (It is basically just a clone of the add payment info code with a different event.) It would be triggered on window load of the cart page.
+## Notes
+You can add tags to track additional ecommerce events. For example, you can find sample code for an HTML tag to trigger a begin_checkout event when the cart is viewed [here.](https://github.com/magicalbrad/thundertixGA4/blob/main/begin_checkout.js) (It is basically just a clone of the add payment info code with a different event.) It would need to be triggered on page load of the cart page.
+
+Using custom Javascript variables in Tag Manager would have simplified some aspects of this implementation. However this was not possible, as Thundertix's Content Seciurity Policy prevents custom Javascript variables from working. (I can't really fault them for having a strong CSP. It's good that they seem to take security seriously. However, it does lead to further complexity in working around their shortcommings related to analytics integration.)
