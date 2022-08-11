@@ -37,7 +37,7 @@ Note: this is just the basic implementation. Ecommerce is more complicated, and 
 
 - Create a "Custom HTML Tag" in Tag Manager, using the script in the [child_frame.js file.](https://github.com/magicalbrad/thundertixGA4/blob/main/child_frame.js) It should be triggered on all pages. There are some optional configuration options in the file. See the comments in the file for more info. 
 
-<details>
+<details style="margin-bottom: 1.5em">
   <summary>Example Image</summary>
   
  <a href="https://github.com/magicalbrad/thundertixGA4/raw/main/docs/assets/images/tag-sent-to-parent.png"><img alt="Tag: Send to Parent" src="https://github.com/magicalbrad/thundertixGA4/raw/main/docs/assets/images/tag-sent-to-parent.png"></a>
@@ -54,7 +54,7 @@ Note: this is just the basic implementation. Ecommerce is more complicated, and 
 
 - Create a "Google Analytics: GA4 Configuration Tag" in Tag Manager, configured for your website's GA4 account, if you don't already have one set up.
 
-<details>
+<details style="margin-bottom: 1.5em">
   <summary>Example Image</summary>
   
    <a href="https://github.com/magicalbrad/thundertixGA4/raw/main/docs/assets/images/tag-ga4.png"><img alt="Tag: GA4" src="https://github.com/magicalbrad/thundertixGA4/raw/main/docs/assets/images/tag-ga4.png"></a>
@@ -64,7 +64,7 @@ Note: this is just the basic implementation. Ecommerce is more complicated, and 
 
 - Create a "Custom HTML Tag" in Tag Manager, using the script in [parent_frame.js file.](https://github.com/magicalbrad/thundertixGA4/blob/main/parent_frame.js) There is an optional configuration option in the file. See the comments in the file for more info. This tag only needs to be triggered on pages that have a Thundertix iframe.
 
-<details>
+<details style="margin-bottom: 1.5em">
   <summary>Example Image</summary>
   
    <a href="https://github.com/magicalbrad/thundertixGA4/raw/main/docs/assets/images/tag_parent_logic.png"><img alt="Tag: Parent Logic" src="https://github.com/magicalbrad/thundertixGA4/raw/main/docs/assets/images/tag_parent_logic.png"></a>
@@ -86,7 +86,7 @@ Note: this is just the basic implementation. Ecommerce is more complicated, and 
 
 </details>
 
-<details>
+<details style="margin-bottom: 1.5em">
   <summary>Thundertix Page URL Example Image</summary>
   
    <a href="https://github.com/magicalbrad/thundertixGA4/raw/main/docs/assets/images/var_page_url.png"><img alt="Tag: Thundertix Page URL" src="https://github.com/magicalbrad/thundertixGA4/raw/main/docs/assets/images/var_page_url.png"></a>
@@ -100,7 +100,7 @@ Note: this is just the basic implementation. Ecommerce is more complicated, and 
 |---|---|---|---|
 | Thundertix Page View | Custom Event | iframe.gtm.js | All Custom Events |
 
-<details>
+<details style="margin-bottom: 1.5em">
   <summary>Example Image</summary>
   
    <a href="https://github.com/magicalbrad/thundertixGA4/raw/main/docs/assets/images/trigger_page_view.png"><img alt="Trigger: Thundertix Page View" src="https://github.com/magicalbrad/thundertixGA4/raw/main/docs/assets/images/trigger_page_view.png"></a>
@@ -117,7 +117,7 @@ Note: this is just the basic implementation. Ecommerce is more complicated, and 
 
 {% endraw %}
 
-<details>
+<details style="margin-bottom: 1.5em">
   <summary>Example Image</summary>
   
    <a href="https://github.com/magicalbrad/thundertixGA4/raw/main/docs/assets/images/tag_page_view.png"><img alt="Tag: Page View" src="https://github.com/magicalbrad/thundertixGA4/raw/main/docs/assets/images/tag_page_view.png"></a>
@@ -143,13 +143,26 @@ If you wish to track more events, you can manually add them to the data layer. Y
 
 Thundertix doesn't support GA4 ecommerce. This is my attempt to make it work anyway. It scrapes the necessary data off the page, which is a fragile hack that will break if they make even minor changes to the ticketing pages. 
 
-As your needs may be different than mine, you should probably consider this as an example reference implementation, rather than a plug-and-play solution. Also be aware it could stop working at any time. 
+As your needs may be different than mine, you should probably consider this as an example reference implementation, rather than a plug-and-play solution. Also be aware it could stop working at any time if Thundertix changes anything on their ticketing pages.
 
-Here's my approach. I am considering the show name to be the item name, and the ticket type to be the item variant. I am ignoring the date. 
+### Ecommerce Approach
+There are a number of decisions to be made in setting up ecommerce. Among them are: 
 
-I am considering the page where ticket quantities are selected, "/orders/new?performance_id=XXXXXXXX," to be the "item page." This is the first page in the purchasing process that displays a price. I am triggering a view_item event with a minimal ecommerce object with the value and an item array containing just the show name displayed on that page. If there are multiple ticket types, the price of the first ticket displayed on the page is used for the event value.  
+-What are we considering an "item?" The show? The performance? The ticket?
 
-The add_payment_info event is triggered on the cart page when it is submitted. There are two URLs used for the cart, /orders and /new. This tag creates a full ecommerce object based on what was in the cart at the time payment was attempted. (I actually don't bother tracking this event, as I'm only triggering this to get the ecommerce object. However, you could track it if you wish.)
+-Which ecommerce events are worth tracking?
+
+-How do we map Thundertix's checkout flow to what Google expects for?
+
+Your decisions may be different than mine. If so, this won't be a "plug and play" solution, and may require tweaking to meet your needs. 
+
+I decided to consider the show to be the item. The ticket type isbeing used as the item variant--though that field doesn't apper to be exposed n Google Analytics in any meangful way. I am ignoring the performance date and time for the sake of ecommerce tracking. 
+
+Given that each action tracked requires manual setup and may require ongoing maintenence to keep working, I am minimizing the events I track. Purchase is obviously the critical event. I'm also tracking item views. (I'm also trigering an add_payment_info event. I don't care about this event per se, but I need to fire an event at that point to have the necessary information for ecommerce to work.)
+
+I am considering the page where ticket quantities are selected, "/orders/new?performance_id=XXXXXXXX," to be the "item page." This is the first page in the purchasing flow that displays a price.  
+
+The add_payment_info event is triggered on the cart page when it is payment is submitted. There are two URLs used for the cart, /orders and /new. This tag creates a full ecommerce object based on what was in the cart at the time payment was attempted. (I actually don't bother tracking this event, as I'm only triggering this to get the ecommerce object. However, you could track it if you wish.)
 
 A purchase event is triggered when the "Thank You" page is viewed. There isn't sufficient information on this page to create an ecommerce object. However, the ecommerce object created for the add_payment_info trigger still exists and will be used instead.
 
