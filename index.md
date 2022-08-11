@@ -148,11 +148,11 @@ As your needs may be different than mine, you should probably consider this as a
 ### Ecommerce Approach
 There are a number of decisions to be made in setting up ecommerce. Among them are: 
 
--What are we considering an "item?" The show? The performance? The ticket?
+- What are we considering an "item?" The show? The performance? The ticket?
 
--Which ecommerce events are worth tracking?
+- Which ecommerce events are worth tracking?
 
--How do we map Thundertix's checkout flow to what Google expects for?
+- How do we map Thundertix's checkout flow to what Google expects for?
 
 Your decisions may be different than mine. If so, this won't be a "plug and play" solution, and may require tweaking to meet your needs. 
 
@@ -174,7 +174,7 @@ A purchase event is triggered when the "Thank You" page is viewed. There isn't s
 | Name | Trigger Type | Trigger Fires on |
 |---|---|---|
 | View Item | Page View - Window Loaded |  Some Window Loaded Events: Page Path equals /orders/new |
-| Purchase Form Submit | Form Submission | Wait for Tags: 1000 ms <br> Form ID equals purchase_order_form <br> All Forms | 
+| Purchase Form Submit | Form Submission | Wait for Tags: 1000 ms <br><br> Form ID equals purchase_order_form <br><br> All Forms | 
 
 <details>
   <summary>View Item Example Image</summary>
