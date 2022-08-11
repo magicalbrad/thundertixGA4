@@ -62,7 +62,7 @@ Note: this is just the basic implementation. Ecommerce is more complicated, and 
 </details>
 
 
-- Create a "Custom HTML Tag" in Tag Manager, using the script in [parent_frame.js file.](https://github.com/magicalbrad/thundertixGA4/blob/main/parent_frame.js) There is an optional configuration option in the file. See the comments in the file for more info. This tag only needs to be triggered on pages that have a Thundertix iframe.
+- Create a "Custom HTML Tag" in Tag Manager, using the script in [parent_frame.js file.](https://github.com/magicalbrad/thundertixGA4/blob/main/parent_frame.js) There is an optional configuration option in the file. See the comments in the file for more info. This tag should only be triggered on pages of your site that have a Thundertix iframe embed.
 
 <details style="margin-bottom: 1.5em">
   <summary>Example Image</summary>
@@ -158,7 +158,7 @@ Your decisions may be different than mine. If so, this won't be a "plug and play
 
 I decided to consider the show to be the item. The ticket type isbeing used as the item variant--though that field doesn't apper to be exposed n Google Analytics in any meangful way. I am ignoring the performance date and time for the sake of ecommerce tracking. 
 
-Given that each action tracked requires manual setup and may require ongoing maintenence to keep working, I am minimizing the events I track. Purchase is obviously the critical event. I'm also tracking item views. (I'm also trigering an add_payment_info event. I don't care about this event per se, but I need to fire an event at that point to have the necessary information for ecommerce to work.)
+Given that each action tracked requires manual setup and may require ongoing maintenence to keep working, I am minimizing the events I track. Purchase is obviously the critical event. I'm also tracking item views. (I'm also trigering an add_payment_info event. I don't care about this event per se, but I need to fire an event at that point to gather the necessary data for ecommerce to work.)
 
 I am considering the page where ticket quantities are selected, "/orders/new?performance_id=XXXXXXXX," to be the "item page." This is the first page in the purchasing flow that displays a price.  
 
@@ -169,9 +169,59 @@ A purchase event is triggered when the "Thank You" page is viewed. There isn't s
 ### Thundertix Child Frame Setup
 
 #### Google Tag Manager
-- Create a "Custom HTML Tag" for item views in Tag Manager, using the script in the [view_item.js file.](https://github.com/magicalbrad/thundertixGA4/blob/main/view_item.js) It should be triggered on window load only on the item page. For my purposes, that is /orders/new. Depending on which embed code you're using, you may need to trigger on pages with a URL like /events/(event id). (You could skip this entirely if you aren't interested intracking this event.)
+- Create the following triggers:
 
-- Create a "Custom HTML Tag" for adding payment info in Tag Manager, using the script in the [add_payment_info.js file.](https://github.com/magicalbrad/thundertixGA4/blob/main/add_payment_info.js) It should be triggered on submit of the order form. The cart page has a URL of either /orders/new or /cart, depending on whether the user is coming to it for the first time, or returning later. So, you'll need triggers for both URLs.
+| Name | Trigger Type | Trigger Fires on |
+|---|---|---|
+| View Item | Page View - Window Loaded |  Some Window Loaded Events: Page Path equals /orders/new |
+| Purchase Form Submit | Form Submission | Wait for Tags: 1000 ms <br> Form ID equals purchase_order_form <br> All Forms | 
+
+<details>
+  <summary>View Item Example Image</summary>
+  
+   <a href="https://github.com/magicalbrad/thundertixGA4/raw/main/docs/assets/images/trigger_view_item.png"><img alt="Trigger: View Item" src="https://github.com/magicalbrad/thundertixGA4/raw/main/docs/assets/images/trigger_view_item.png"></a>
+
+</details>
+
+<details style="margin-bottom: 1.5em">
+  <summary>Purchase Form Submit Example Image</summary>
+  
+   <a href="https://github.com/magicalbrad/thundertixGA4/raw/main/docs/assets/images/trigger_purchase_form_submit.png"><img alt="Trigger: Purchase Form Submit" src="https://github.com/magicalbrad/thundertixGA4/raw/main/docs/assets/images/trigger_purchase_form_submit.png"></a>
+
+</details>
+
+- Create the following tags:
+
+| Name | Tag Type | HTML | Triggering |
+|---|---|---|---|
+| View Item  | Custom HTML | Contents of [view_item.js file](https://github.com/magicalbrad/thundertixGA4/blob/main/view_item.js) | View Item |
+| Add Payment Info  | Custom HTML | Contents of [add_payment_info.js file](https://github.com/magicalbrad/thundertixGA4/blob/main/add_payment_info.js) | Purchase Form Submit |
+
+<details>
+  <summary>View Item Example Image</summary>
+  
+   <a href="https://github.com/magicalbrad/thundertixGA4/raw/main/docs/assets/images/tag_view_item.png"><img alt="Tag: View Item" src="https://github.com/magicalbrad/thundertixGA4/raw/main/docs/assets/images/tag_view_item.png"></a>
+
+</details>
+
+<details style="margin-bottom: 1.5em">
+  <summary>Add Payment Info Example Image</summary>
+  
+   <a href="https://github.com/magicalbrad/thundertixGA4/raw/main/docs/assets/images/tag_add_payment_info.png"><img alt="Tag: Add Payment Info" src="https://github.com/magicalbrad/thundertixGA4/raw/main/docs/assets/images/tag_add_payment_info.png"></a>
+
+</details>
+
+
+
+
+
+
+
+
+
+
+
+
 
 ### Parent Window (a.k.a. your site)
 
