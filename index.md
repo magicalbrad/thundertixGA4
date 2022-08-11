@@ -195,4 +195,4 @@ A purchase event is triggered when the "Thank You" page is viewed. There isn't s
 {% endraw %}
 
 #### Notes and Additional Options
-You can add tags to track additional ecommerce events. You can find sample code for an HTML tag to trigger a begin_checkout event when the cart is viewed here: (https://github.com/magicalbrad/thundertixGA4/blob/main/begin_checkout.js) It should be triggered on window load of the cart page. 
+You can add tags to track additional ecommerce events. For example, you can find sample code for an HTML tag to trigger a begin_checkout event when the cart is viewed [here.](https://github.com/magicalbrad/thundertixGA4/blob/main/begin_checkout.js) (It is basically just a clone of the add payment info code with a different event.) It would be triggered on window load of the cart page.
