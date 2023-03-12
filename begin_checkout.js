@@ -15,10 +15,10 @@
     if (itemDescriptionMobile.length > 0) { // Need to use the mobile version of the DOM
       itemDesc = itemDescriptionMobile[i].innerText;
     }
-    var nameparts = itemDesc.split(/:|Sunday,|Monday,|Tuesday,|Wednesday,|Thursday,|Friday,|Saturday,/);
+    var nameparts = itemDesc.split(/ : |Sunday,|Monday,|Tuesday,|Wednesday,|Thursday,|Friday,|Saturday,/);
     
 	  item.item_name = nameparts[1].trim(); // Show Name
-      item.item_variant = nameparts[0].trim(); // Ticket type
+	  item.item_variant = nameparts[0].trim(); // Ticket type
 	  item.price = parseFloat(orderItem.querySelector('td:nth-child(2) span').innerText.replace("$", ""), 10);
 	  item.quantity = parseInt(orderItem.querySelector('td:nth-child(1)').innerText, 10);
     
